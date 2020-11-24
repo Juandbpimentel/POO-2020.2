@@ -3,4 +3,6 @@
 
 
 - Juan David Bizerra Pimentel | 470157
--- [S01E02 - Hello World](Codigos_de_estudo\helloworld.java)
+
+- S01E02: Aprender a utilizar o git e fazer o push do código "Hello World"
+    - [Hello World](Codigos_de_estudo\helloworld.java)
