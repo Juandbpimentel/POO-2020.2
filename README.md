@@ -13,4 +13,4 @@
 ## S01E02 - Git:
 - Homework:
     - Depois de ter criado o repositório e ter feito todas as outras etapas, fiz os exercícios de fixação do capítulo 3 da apostila. O ultimo que eu fiz foi o de Fibonacci e o código dele é o seguinte:
-        - [Fibonacci](Projeto\ 01\ Inicio/Fibonacci.java)
+        - [Fibonacci](Projeto_01_Inicio/Fibonacci.java)
