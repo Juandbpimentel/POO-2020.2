@@ -2,7 +2,7 @@
 <img src="foto.jpg" width="175">
 
 - Juan David Bizerra Pimentel | 470157
-- 
+
 ## S01E01 - Negociações:
 - Lecture:
     - [Hello World](Codigos_de_estudo/helloworld.java)
