@@ -1,6 +1,6 @@
-## Projeto 02
+# Projeto 02
 
-# E01
+## E01
 - Lecture
     - [x] Depois da aula eu li o capitulo 4 da apostila e pratiquei fazendo o exercício de casa do carro e melhorando o código do calango, os dois interativos
 - Classwork
@@ -10,4 +10,4 @@
     - [x] Colocar seus códigos na pasta **Projeto 02 Java**.
     - [x] Fazer um relatório dos seus estudos da semana no arquivo Readme.md dessa pasta.
 
-- **Relatório**: Fiz os códigos dessa semana e estudei o conteúdo da apostila, fiz sozinho e pesquizando na internet dúvidas sobre a linguagem e lógica, aprendi sobre classe, atributos, métodos e contrutores, também sobre objetos e tipos de objetos(Classes). Acho que a minha maior dificuldade é, por distração ou coisa do tipo, não enxergar direito os atributos e métodos de algo para lista-los e daí transforma-los em código, demorei 4 horas separadas pelo dia para fazer os dois códigos (**[Carro](Carro.java)** e **[Calango](Calango.java)**)
+#### **Relatório**: Fiz os códigos dessa semana e estudei o conteúdo da apostila, fiz sozinho e pesquizando na internet dúvidas sobre a linguagem e lógica, aprendi sobre classe, atributos, métodos e contrutores, também sobre objetos e tipos de objetos(Classes). Acho que a minha maior dificuldade é, por distração ou coisa do tipo, não enxergar direito os atributos e métodos de algo para lista-los e daí transforma-los em código, demorei 4 horas separadas pelo dia para fazer os dois códigos (**[Carro](Carro.java)** e **[Calango](Calango.java)**)
