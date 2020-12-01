@@ -1,7 +1,6 @@
 import java.util.Scanner;
-
-import cods.Calango;
-import cods.Carro;
+//import cods.Calango;
+//import cods.Carro;
 
 
 public class Interativo{
