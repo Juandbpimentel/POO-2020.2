@@ -1,6 +1,7 @@
-import java.util.Scanner;
+package cods;
 
 public class Calango {
+
     int bucho; //atributos
     int maxBucho;
     int nPatas;
@@ -9,7 +10,7 @@ public class Calango {
     boolean vivo;
 
     //mesmo nome da classe = sombreamento de variavel
-    Calango(int bucho, int maxBucho,int maxVida){ //parametros
+    public Calango(int bucho, int maxBucho,int maxVida){ //parametros
         this.bucho = bucho;
         this.maxBucho = maxBucho;
         this.nPatas = 4;
@@ -18,7 +19,7 @@ public class Calango {
         this.vivo = true;
     }
 
-    void comer(int qtd){
+    public void comer(int qtd){
         if(!vivo){
             System.out.println("Seu calango não reage (tá mortinho ;-;)");
             return;
@@ -48,7 +49,7 @@ public class Calango {
         }
     }
 
-    void andar(int qtd){
+    public void andar(int qtd){
         if(!vivo){
             System.out.println("Seu calango não reage (tá mortinho ;-;)");
             return;
@@ -85,7 +86,7 @@ public class Calango {
         }
     }
 
-    void acidentar(){
+    public void acidentar(){
         if(!vivo){
             System.out.println("Seu calango não reage (tá mortinho ;-;)");
             return;
@@ -101,7 +102,7 @@ public class Calango {
         }
     }
 
-    void regenerar(){
+    public void regenerar(){
         if(!vivo){
             System.out.println("Seu calango não reage (tá mortinho ;-;)");
             return;
@@ -123,45 +124,6 @@ public class Calango {
             return "Bucho: " + bucho + "/" + maxBucho + " Patas: " + nPatas + " Vida: " + vida + "/" + maxVida;
         }else
             return "Bucho: " + bucho + "/" + maxBucho + " Patas: " + nPatas + " Vida: " + vida + "/" + maxVida + " (Seu Calango está morto)";
-    }
-
-    public static void main(String[] args) {
-        //referencia      = criando objeto
-        Calango deadlango = new Calango(20,20,10);
-        Scanner scanner = new Scanner(System.in);
-        
-        while(true){
-            System.out.print(">");
-            String line = scanner.nextLine();
-            String ui[] = line.split(" ");
-            //System.out.println("$"+ui[0]+"\n");
-            if(ui[0].equals("end")){
-                break;
-            }else if(ui[0].equals("comer")){
-                if(ui.length == 2)
-                    deadlango.comer(Integer.parseInt(ui[1]));
-                else
-                    System.out.println("Você esqueceu de botar quantos bichos ele comeu");
-            }else if(ui[0].equals("andar") && ui.length == 2){
-                if(ui.length == 2)
-                    deadlango.andar(Integer.parseInt(ui[1]));
-                else
-                    System.out.println("Você esqueceu de botar a distância que ele andou");
-            }else if(ui[0].equals("acidentar")){
-                deadlango.acidentar();
-            }else if(ui[0].equals("regenerar")){
-                deadlango.regenerar();
-            }else if(ui[0].equals("show")){
-                System.out.println(deadlango);
-            }else if(ui[0].equals("caçarCalangoNovo")){
-                if(ui.length == 4){
-                    deadlango = new Calango(Integer.parseInt(ui[1]),Integer.parseInt(ui[2]),Integer.parseInt(ui[3]));
-                    System.out.println("Toma aqui seu calango novo ;D");
-                }else
-                    System.out.println("Me dá as informações do calango novo pra eu ir caçar ele pra você");
-            }
-        }
-        scanner.close();;
     }
 }
 
