@@ -2,7 +2,7 @@
 <img src="foto.jpg" width="175">
 - Juan David Bizerra Pimentel | 470157
 
-## S01E01 - [Negociações](Projeto_01_Inicio)
-## S01E02 - [Git](Projeto_01_Inicio)
+## S01:
+> E01 e E02 - [Negociações e Git](Projeto_01_Inicio)
 
 ## S02E01 - [Java Exercício](Projeto_02_Java)
