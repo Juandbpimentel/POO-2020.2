@@ -152,7 +152,7 @@ public class Calango {
             }else if(ui[0].equals("regenerar")){
                 deadlango.regenerar();
             }else if(ui[0].equals("show")){
-                System.out.println(deadlango.toString());
+                System.out.println(deadlango);
             }else if(ui[0].equals("caçarCalangoNovo")){
                 if(ui.length == 4){
                     deadlango = new Calango(Integer.parseInt(ui[1]),Integer.parseInt(ui[2]),Integer.parseInt(ui[3]));
