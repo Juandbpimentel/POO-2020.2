@@ -1,5 +1,5 @@
 {
     "files.autoSave": "afterDelay",
-    "java.dependency.syncWithFolderExplorer": false,
+    "java.dependency.syncWithFolderExplorer": true,
     "java.dependency.packagePresentation": "hierarchical"
 }
