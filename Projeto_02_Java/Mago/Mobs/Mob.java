@@ -17,6 +17,7 @@ public class Mob{
     
     public static Scanner scan = new Scanner(System.in);
 
+    //Construtores
     public Mob(String name, int nivel,int forca ,int constituicao ,int inteligencia){
         this.vivo = true;
         this.name = name;
@@ -31,25 +32,12 @@ public class Mob{
             this.vidaMax += ( (this.constituicao + 5) * nivel);
             this.manaMax += ( (this.inteligencia + 5) * nivel);
         }
-
+        
         this.vidaAtual=vidaMax;
         this.manaAtual=manaMax;
     }
-
-    public Mob(){
-        this.vivo = true;
-        this.name = "Slime";
-        this.nivel = 1;
-        this.vidaMax=5;
-        this.manaMax=5;
-        this.vidaAtual = vidaMax;
-        this.manaAtual = manaMax;
-        this.constituicao = 1;
-        this.inteligencia = 1;
-        this.forca = 1;
-    }
-
-    Mob(int nivel, String nome){
+    
+    public Mob(int nivel, String nome){
         this.name = nome;
         this.vivo = true;
         this.nivel = nivel;
@@ -70,10 +58,10 @@ public class Mob{
             this.vidaMax += ( (this.constituicao + 5) * nivel);
             this.manaMax += ( (this.inteligencia + 2) * nivel);
         }
-
+        
         this.vidaAtual=vidaMax;
         this.manaAtual=manaMax;
-
+        
         if(this.nivel >= 1 &&  this.nivel < 50) {
             this.name += " Desatrado";
         }else if(this.nivel>=50 && this.nivel<250){
@@ -86,25 +74,31 @@ public class Mob{
             this.name = "Rei dos Goblin";
         }
     }
-
-    public Mob(String name){
-        this.name = name;
-        
+    
+    public Mob(){
+        this.vivo = true;
+        this.name = "Slime";
+        this.nivel = 1;
+        this.vidaMax=5;
+        this.manaMax=5;
+        this.vidaAtual = vidaMax;
+        this.manaAtual = manaMax;
+        this.constituicao = 1;
+        this.inteligencia = 1;
+        this.forca = 1;
     }
-
-    long dropar_xp(){
-        return ( 10 * (long) Math.pow(2,this.nivel));
-    }
-
+    
+    
+    
     public String toString(){
-        String nome = "| Nome: "+ this.name, 
+        String nome = "| Monstro: "+ this.name, 
         mana = " | Mana: "+ this.manaAtual+"/"+this.manaMax,
         vida = " | Vida: "+ this.vidaAtual+"/"+this.vidaMax,
         nivel= " | Nivel: "+ this.nivel,
         forca= " | Força: "+ this.forca,
         inteligencia= " | Inteligência: "+this.inteligencia,
         constituicao= " | Constituição: "+ this.constituicao+" |";
-
+        
         String saida = nome + mana + vida + nivel + forca + inteligencia + constituicao;
         long n = saida.length();
         saida = "\n" + saida + "\n";
@@ -113,8 +107,15 @@ public class Mob{
         } 
         return "\n\n"+saida;
     }
+    
+    long dropar_xp(){
+        return ( 10 * (long) Math.pow(2,this.nivel));
+    }
 
     void sofrer_dano(long dano, long defesa){
+        if(!vivo){
+            return;
+        }
         Random rand = new Random();
         long calculo_dano = defesa-dano; 
         this.vidaAtual += calculo_dano;
@@ -204,10 +205,22 @@ public class Mob{
         return defender;
     }
 
-    void show(){
-        System.out.println(this.toString());
+    public String show(){
+        String nome = "| Nome: "+ this.name, 
+        mana   = " | Mana: "+ this.manaAtual+"/"+this.manaMax,
+        vida   = " | Vida: "+ this.vidaAtual+"/"+this.vidaMax;
+
+        String saida = nome + mana + vida;
+        long n = saida.length();
+        saida = "\n" + saida + "\n";
+        for (long i = 0; i < n; i++) {
+            saida = "-" + saida + "-";
+        } 
+        return "\n\n"+saida;
     }
+
+    public void morrer(){
+        this.vivo = false;
+    }
+    
 }
-
-
-

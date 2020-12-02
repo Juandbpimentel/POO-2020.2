@@ -2,14 +2,14 @@ package Mobs;
 //import java.util.Random;
 
 public class Goblin extends Mob {
-    Goblin(){
+    public Goblin(){
         super();
         super.name = "Goblin";
     }
     // x = 1/2 = 0 ; y = 1-x = 1-0 = 1;
     // x = 3/2 = 1 ; y = 2-x = 3-1 = 2;
     // x = 5/2 = 2 ; y = 5-x = 5-2 = 1;
-    Goblin(int nivel,String nome){
+    public Goblin(int nivel,String nome){
         super(nivel, nome);
         this.vivo = true;
         this.vidaMax=0;
