@@ -4,6 +4,10 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Mob{
+    public static String cor_defesa = "\u001B["+ "31" + "m";
+    public static String cor_critico = "\u001B["+ "31" + "m";
+    public static String limpar_texto = "\u001B["+"m";
+
     String name;
     long vidaAtual;
     long vidaMax;
@@ -112,7 +116,7 @@ public class Mob{
         return ( 10 * (long) Math.pow(2,this.nivel));
     }
 
-    void sofrer_dano(long dano, long defesa){
+    void receber_ataque(long dano, long defesa){
         if(!vivo){
             return;
         }
@@ -172,12 +176,11 @@ public class Mob{
             rand = (random.nextInt(this.forca));
             rand2 = (random.nextInt(this.nivel));
             atacar = (this.forca * (rand2+1)*this.forca);
-            System.out.println(">>> Ataque Normal: "+atacar);
         }else{
             rand = (random.nextInt(this.forca));
             rand2 = (random.nextInt(this.nivel));
             atacar = 2*(this.forca * (rand2+1)*this.forca);   
-            System.out.println(">>> Ataque Crítico: "+atacar);    
+            System.out.println("!!!Você acertou um Ataque Crítico!!!");    
         }
         return atacar;
     }

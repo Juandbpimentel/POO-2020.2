@@ -3,6 +3,11 @@ package Jogadores;
 import java.util.Random;
 import java.util.Scanner;
 public class Jogador{
+    //public static String texto_verde = "\u001B["+ "32" + "m";
+    public static String cor_defesa = "\u001B["+ "36" + "m";
+    public static String cor_critico = "\u001B["+ "33" + "m";
+    public static String limpar_texto = "\u001B["+"m";
+    
     protected String name;
     protected long vidaAtual;
     protected long pocaoMax;
@@ -214,12 +219,11 @@ public class Jogador{
             rand = (random.nextInt(this.forca));
             rand2 = (random.nextInt(this.nivel));
             atacar = (this.forca * (rand2+1)*this.forca);
-            System.out.println(">>> Ataque Normal: "+atacar);
         }else{
             rand = (random.nextInt(this.forca));
             rand2 = (random.nextInt(this.nivel));
             atacar = 2*(this.forca * (rand2+1)*this.forca);   
-            System.out.println(">>> Ataque Crítico: "+atacar);    
+            System.out.println("!!!Você acertou um Ataque Crítico!!!");    
         }
         return atacar;
     }
@@ -235,19 +239,18 @@ public class Jogador{
             rand2 = (random.nextInt(this.nivel));
 
             defender = (this.constituicao *(rand2+1)*this.constituicao);
-            System.out.println(">>> Defesa: "+defender);
 
         }else{
             rand2 = (random.nextInt(this.nivel));
 
             defender = (long) 4*(this.constituicao*(rand2+1)*this.constituicao);   
-            System.out.println(">>> Defesa Perfeita: "+defender); 
+            System.out.println("!!! Sua defesa é perfeita e inabalável !!!"); 
 
         }
         return defender;
     }
 
-    public void regenerar(){
+    public void potar(){
         if(pocaoAtual>0){
             if(vidaAtual<vidaMax && vidaAtual>vidaMax/4){
             System.out.println("*Glup*");
@@ -265,7 +268,7 @@ public class Jogador{
         }
     }
     
-    public void sofrer_dano(long dano, long defesa){
+    public void receber_ataque(long dano, long defesa){
         long calculo_dano = defesa-dano; 
         this.vidaAtual += calculo_dano;
 

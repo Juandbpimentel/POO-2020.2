@@ -15,15 +15,15 @@ class Ansi {
         
         //System.out.println (texto);
 
-        //for (int i = 0; i < 108; i++) {
-        //    System.out.print("\u001B["+ Integer.toString(i) + "m"+"Texto esquerda: " + i+"                            -");
-        //    System.out.println("\u001B["+"m");
-        //}
+        for (int i = 0; i < 108; i++) {
+            System.out.print("\u001B["+ Integer.toString(i) + "m"+"Texto esquerda: " + i+"                            -");
+            System.out.println("\u001B["+"m");
+        }
 
-        System.out.print(texto_fundo);
-        System.out.print(texto_preto+ "               -");
+        //System.out.print(texto_fundo);
+        //System.out.print(texto_preto+ "               -");
 
-        System.out.println(limpar_texto);
+        //System.out.println(limpar_texto);
         
     }
 }
