@@ -2,4 +2,4 @@
 
 ## E01 - Negociações
 ### Códigos: 
-- ) [Hello World](helloworld.java)
+- [Hello World](helloworld.java)
