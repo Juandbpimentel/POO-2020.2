@@ -1,4 +1,4 @@
-//package cods;
+package cods;
 
 public class Calango {
 
