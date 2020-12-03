@@ -3,7 +3,7 @@
 - Juan David Bizerra Pimentel | 470157
 
 ## S01: 
-- ### E01 [Negociações](Projeto_01_Inicio/E01)
+- ### E01 - [Negociações](Projeto_01_Inicio/E01)
 - ### E02 - [Git](Projeto_01_Inicio/E02)
 
 ## S02: 

@@ -2,8 +2,8 @@
 
 ## E01 - Inicio e Exercício
 ### Códigos: 
-- [Carro](Carro.java)
-- [Calango](Calango.java)
+- [Carro](cods/Carro.java)
+- [Calango](cods/Calango.java)
 
 ### **Relatório**
 - O que fez: Eu fiz o Calango evoluído e o Carro, os dois com interatividade
