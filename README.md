@@ -8,4 +8,4 @@
 
 ## S02: 
 - ### E01 - [Java Inicio e Java Exercício](Projeto_02_Java/Inicio_e_exercicio)
-- ### E02 - [O Mago](Projeto_02_Java/Mago)
+- ### E02 - [Mas...](Projeto_02_Java/Mago)
