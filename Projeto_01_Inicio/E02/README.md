@@ -3,4 +3,4 @@
 ## E02 - Git
 ### Códigos: 
 - [Fibonacci](Fibonacci.java) 
-- [Mobs](Soma.java)
+- [Soma](Soma.java)
