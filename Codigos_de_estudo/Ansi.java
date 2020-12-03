@@ -3,9 +3,9 @@ class Ansi {
         //String texto_vermelho = "\u001B["+ "31" + "m"+"Texto vermelho";
         //String texto_verde = "\u001B["+ "32" + "m"+"Texto verde";
         //String texto_amarelo = "\u001B["+ "33" + "m"+"Texto amarelo";
-        String texto_preto = "\u001B["+ "30" + "m"+"Texto preto";
-        String texto_fundo = "\u001B["+ "41" + "m" + "Texto fundo";
-        String limpar_texto = "\u001B["+"m";
+        //String texto_preto = "\u001B["+ "30" + "m"+"Texto preto";
+        //String texto_fundo = "\u001B["+ "41" + "m" + "Texto fundo";
+        //String limpar_texto = "\u001B["+"m";
 
         //System.out.println (texto_vermelho);
         
