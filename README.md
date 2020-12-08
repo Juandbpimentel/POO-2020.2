@@ -9,6 +9,6 @@
 ## S02: 
 - ### E01 - [Java Inicio e Java Exercício](Projeto_02_Java/)
 
-## Projeto Extra - [RPG de Terminal](Mago/)
+#### Projeto Extra - [RPG de Terminal](Mago/)
 
 
