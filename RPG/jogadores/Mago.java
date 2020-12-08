@@ -1,10 +1,10 @@
-package Jogadores;
+package jogadores;
 
 import java.util.Random;
 
 public class Mago extends Jogador {
-    public static String cor_critico = "\u001B["+ "35" + "m";
-    public static String limpar_texto = "\u001B["+"m";
+    public static String corCritico = "\u001B["+ "35" + "m";
+    public static String limparTexto = "\u001B["+"m";
 
     public Mago(String nome){
         super("Mago Implacável "+nome, 1);
@@ -18,7 +18,8 @@ public class Mago extends Jogador {
         super();
         this.nome = "Mago Implacável " + nome;
 	}
-
+    
+    @Override
     public long atacar(){
         if(!vivo){
             return 0;
@@ -34,8 +35,8 @@ public class Mago extends Jogador {
             rand = (random.nextInt(this.inteligencia));
             rand2 = (random.nextInt(this.nivel));
             atacar = 2*(this.inteligencia * (rand2+1)*this.inteligencia);   
-            System.out.print(cor_critico+"!!! A magia está do seu lado, você acertou um Ataque Crítico !!!");    
-            System.out.println(limpar_texto);
+            System.out.print(corCritico+"!!! A magia está do seu lado, você acertou um Ataque Crítico !!!");    
+            System.out.println(limparTexto);
         }
         return atacar;
     }

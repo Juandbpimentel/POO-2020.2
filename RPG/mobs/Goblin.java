@@ -1,4 +1,4 @@
-package Mobs;
+package mobs;
 //import java.util.Random;
 
 public class Goblin extends Mob {

@@ -5,7 +5,7 @@ class Ansi {
         //String texto_amarelo = "\u001B["+ "33" + "m"+"Texto amarelo";
         //String texto_preto = "\u001B["+ "30" + "m"+"Texto preto";
         //String texto_fundo = "\u001B["+ "41" + "m" + "Texto fundo";
-        //String limpar_texto = "\u001B["+"m";
+        //String limparTexto = "\u001B["+"m";
 
         //System.out.println (texto_vermelho);
         
@@ -23,7 +23,7 @@ class Ansi {
         //System.out.print(texto_fundo);
         //System.out.print(texto_preto+ "               -");
 
-        //System.out.println(limpar_texto);
+        //System.out.println(limparTexto);
         
     }
 }

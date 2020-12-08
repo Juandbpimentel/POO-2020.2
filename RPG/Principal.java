@@ -1,8 +1,5 @@
-import Mobs.*;
-
-//import java.util.Scanner;
-
-import Jogadores.*;
+import jogadores.*;
+import mobs.*;
 
 public class Principal {
     public static void main(String[] args){
@@ -12,13 +9,13 @@ public class Principal {
         //Mob inimigo = new Goblin();
         //Mago mago = new Mago();
         //jogador.main(args);
-        Jogador Mago = new Mago();
+        Jogador mago = new Mago();
         Goblin goblin = new Goblin();
         System.out.println(goblin);
-        Mago.show();
-        System.out.println(Mago);
+        mago.show();
+        System.out.println(mago);
         for (int i = 0; i < 100; i++) {
-            Mago.atacar();
+            mago.atacar();
         }
     }
     

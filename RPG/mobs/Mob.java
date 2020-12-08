@@ -1,14 +1,14 @@
-package Mobs;
-
-import Jogadores.Jogador;
+package mobs;
 
 import java.util.Random;
 import java.util.Scanner;
 
+import jogadores.Jogador;
+
 public class Mob{
-    public static String cor_defesa = "\u001B["+ "31" + "m";
-    public static String cor_critico = "\u001B["+ "31" + "m";
-    public static String limpar_texto = "\u001B["+"m";
+    public static String corDefesa = "\u001B["+ "31" + "m";
+    public static String corCritico = "\u001B["+ "31" + "m";
+    public static String limparTexto = "\u001B["+"m";
 
     String nome;
     protected long vida;
@@ -154,11 +154,11 @@ public class Mob{
         return "\n\n"+saida;
     }
     
-    long dropar_xp(){
+    long droparXp(){
         return ( 10 * (long) Math.pow(2,this.nivel));
     }
 
-    void receber_ataque(Jogador inimigo, boolean defender){
+    void receberAtaque(Jogador inimigo, boolean defender){
         if(!vivo){
             System.out.println("Seu inimigo já está morto, não seja um monstro como ele");
             return;
@@ -171,42 +171,48 @@ public class Mob{
         }
 
         Random rand = new Random();
-        long calculo_dano = defesa-dano; 
-        this.vida += calculo_dano;
+        long calculoDano = defesa-dano; 
+        this.vida += calculoDano;
 
         if(defesa-dano<=0){
             if(vida>= vidaMax/2){
                 switch (rand.nextInt(3)) {
                     case 0:
-                        System.out.println(this.nome+" diz - Ai!!! Seu merdinha, você vai pagar!\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Ai!!! Seu merdinha, você vai pagar!\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
                         break;
                     case 1:
-                        System.out.println(this.nome+" diz - Ouch! Seu maldito, quero ver você acertar de novo, tenho certeza que foi pura sorte!\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Ouch! Seu maldito, quero ver você acertar de novo, tenho certeza que foi pura sorte!\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
                         break;
                     case 2:
-                        System.out.println(this.nome+" diz - Humpf! *Cospe um dente* É só isso que você tem? Não dá nem pro gasto!\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Humpf! *Cospe um dente* É só isso que você tem? Não dá nem pro gasto!\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
+                        break;
+                    default:
                         break;
                 }
             }else if(vida< vidaMax/2 && vida > vidaMax/4){
                 switch(rand.nextInt(2)){
                     case 0:
-                        System.out.println(this.nome+" diz - Grrrrrrr! *O inimigo grune de dor*\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Grrrrrrr! *O inimigo grune de dor*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
                         break;
                     case 1:
-                        System.out.println(this.nome+" diz - Ahrg hurrrm *Seu inimigo está bem machucado e sangrando*\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Ahrg hurrrm *Seu inimigo está bem machucado e sangrando*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
+                        break;
+                    default:
                         break;
                 }
             }else if(vida < vidaMax/4 && vida > 0){
                 switch(rand.nextInt(2)){
                     case 0:
-                        System.out.println(this.nome+" diz - Agrhrrr que dor, eu não vou aguentar muito mais, mas não vou deixar que passe por mim\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Agrhrrr que dor, eu não vou aguentar muito mais, mas não vou deixar que passe por mim\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
                         break;
                     case 1:
-                        System.out.println(this.nome+" diz - Ughrrr *Seu inimigo cospe sangue*\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Ughrrr *Seu inimigo cospe sangue*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
+                        break;
+                    default:
                         break;
                 }
             }else if(vida <= 0){
-                System.out.println(this.nome+" diz - Aahhgrrrrrr! *O inimigo cai inerte no chão*\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano e morreu");
+                System.out.println(this.nome+" diz - Aahhgrrrrrr! *O inimigo cai inerte no chão*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano e morreu");
                 this.vivo=false;
             }
                 

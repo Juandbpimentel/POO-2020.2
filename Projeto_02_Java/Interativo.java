@@ -9,7 +9,7 @@ public class Interativo{
     public static String texto_verde = "\u001B["+ "32" + "m";
     public static String texto_amarelo = "\u001B["+ "33" + "m";
     public static String texto_fundo_amarelo = "\u001B["+ "43" + "m";
-    public static String limpar_texto = "\u001B["+"m";
+    public static String limparTexto = "\u001B["+"m";
     public static Scanner scanner = new Scanner(System.in);
     
     public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class Interativo{
 
         String line = scanner.nextLine();
         
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
 
         if(line.equals("1")){
             teste.mainCarro();
@@ -33,7 +33,7 @@ public class Interativo{
     void mainCalango(){
         //referencia      = criando objeto
         System.out.println(texto_amarelo+"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n---------------------------- Calango Mutante ----------------------------\n\n\n- Digite help para ver os comandos\n");
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
 
         Calango deadlango = new Calango(20,20,10);
         
@@ -49,13 +49,13 @@ public class Interativo{
                     deadlango.comer(Integer.parseInt(ui[1]));
                 else
                     System.out.println(texto_amarelo+"Você esqueceu de botar quantos bichos ele comeu");
-                    System.out.println(limpar_texto);
+                    System.out.println(limparTexto);
             }else if(ui[0].equals("andar") && ui.length == 2){
                 if(ui.length == 2)
                     deadlango.andar(Integer.parseInt(ui[1]));
                 else
                     System.out.println(texto_amarelo+"Você esqueceu de botar a distância que ele andou");
-                    System.out.println(limpar_texto);
+                    System.out.println(limparTexto);
             }else if(ui[0].equals("acidentar")){
                 deadlango.acidentar();
             }else if(ui[0].equals("regenerar")){
@@ -66,10 +66,10 @@ public class Interativo{
                 if(ui.length == 4){
                     deadlango = new Calango(Integer.parseInt(ui[1]),Integer.parseInt(ui[2]),Integer.parseInt(ui[3]));
                     System.out.println(texto_amarelo+"Toma aqui seu calango novo ;D");
-                    System.out.println(limpar_texto);
+                    System.out.println(limparTexto);
                 }else
                     System.out.println(texto_amarelo+"Me dá as informações do calango novo pra eu ir caçar ele pra você");
-                    System.out.println(limpar_texto);
+                    System.out.println(limparTexto);
             }else if(ui[0].equals("help")){
                 helpCalango();
             }
@@ -78,7 +78,7 @@ public class Interativo{
     
     void mainCarro(){
         System.out.println(texto_vermelho+"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n---------------------------- Carro de Fuga ----------------------------\n\n\n- Digite help para ver os comandos\n");
-        System.out.print(limpar_texto);
+        System.out.print(limparTexto);
 
         Carro carro = new Carro();
         while(true){
@@ -107,7 +107,7 @@ public class Interativo{
                 helpCarro();
             }else{
                 System.out.print(texto_vermelho+"Operação inválida");
-                System.out.println(limpar_texto);
+                System.out.println(limparTexto);
             }
         }
     }
@@ -115,73 +115,73 @@ public class Interativo{
     void helpCarro(){
         System.out.println("\n\n\n\n");
         System.out.print(texto_vermelho+"------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
         System.out.print(texto_vermelho+"|                                     Comandos do programa                                     |");
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
         System.out.print(texto_vermelho+"------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
         System.out.print(texto_vermelho+"|       entrar      |         in        | Coloca um passageiro dentro do carro                 |");
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
         System.out.print(texto_vermelho+"------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_vermelho+"|        sair       |        out        | Tira um passageiro do carro                          |");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_vermelho+"------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_vermelho+"|  abastecer <int>  |     fuel <int>    | Abastece o carro                                     |");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_vermelho+"------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_vermelho+"|   dirigir <int>   |    drive <int>    | Dirige o carro por uma distância x se tiver gasolina |");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_vermelho+"------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_vermelho+"|       mostrar     |        show       | Mostra as informações do carro                       |");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_vermelho+"------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);       
+        System.out.println(limparTexto);       
         System.out.print(texto_vermelho+"|                  end                  | Fecha o programa                                     |");
-        System.out.println(limpar_texto);       
+        System.out.println(limparTexto);       
         System.out.print(texto_vermelho+"------------------------------------------------------------------------------------------------\n\n");
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
     }
 
     void helpCalango(){
         System.out.println("\n\n\n\n");
         System.out.print(texto_amarelo+"-----------------------------------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
         System.out.print(texto_amarelo+"|                                                    Comandos do programa                                                   |");
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
         System.out.print(texto_amarelo+"-----------------------------------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
         System.out.print(texto_amarelo+"|               comer <int>              | Dá uma quantidade de insetos para seu calango comer                              |");
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
         System.out.print(texto_amarelo+"-----------------------------------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_amarelo+"|               andar <int>              | Faz seu calango ir dar uma caminhada se tiver com o bucho cheio ou vivo          |");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_amarelo+"-----------------------------------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_amarelo+"|                acidentar               | Faz seu calango sofrer um acidente e perder uma pata se ele tiver uma pra perder |");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_amarelo+"-----------------------------------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_amarelo+"|                regenerar               | Recupera uma pata se seu calango estiver de estomago cheio                       |");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_amarelo+"-----------------------------------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_amarelo+"|   caçarCalangoNovo <int> <int> <int>   | Caça um calango novo pra você caso o seu sofra uma fatalidade                    |");
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
         System.out.print(texto_amarelo+"-----------------------------------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);       
+        System.out.println(limparTexto);       
         System.out.print(texto_amarelo+"|                   show                 | Mostra as informações do seu calango mutante                                     |");
-        System.out.println(limpar_texto);        
+        System.out.println(limparTexto);        
         System.out.print(texto_amarelo+"-----------------------------------------------------------------------------------------------------------------------------");
-        System.out.println(limpar_texto);       
+        System.out.println(limparTexto);       
         System.out.print(texto_amarelo+"|                   end                  | Fecha o programa                                                                 |");
-        System.out.println(limpar_texto);       
+        System.out.println(limparTexto);       
         System.out.print(texto_amarelo+"-----------------------------------------------------------------------------------------------------------------------------\n\n");
-        System.out.println(limpar_texto);
+        System.out.println(limparTexto);
     }
 
 }

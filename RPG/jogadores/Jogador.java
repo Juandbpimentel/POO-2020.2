@@ -1,21 +1,22 @@
-package Jogadores;
+package jogadores;
 
 import java.util.Random;
 import java.util.Scanner;
 
-import Mobs.Mob;
+import mobs.Mob;
 public class Jogador{
 
     public static void main(String[] args){
-        
+        System.out.println("teste");
     }
 
     //public static String texto_verde = "\u001B["+ "32" + "m";
-    private String cor_defesa = "\u001B["+ "33" + "m";
-    private String cor_critico = "\u001B["+ "33" + "m";
-    private String cor_levelup = "\u001B["+ "33" + "m";
-    private String cor_show = "\u001B["+ "36" + "m";
-    private String limpar_texto = "\u001B["+"m";
+    private String corDefesa = "\u001B["+ "33" + "m";
+    private String corCritico = "\u001B["+ "33" + "m";
+    private String corLevelUp = "\u001B["+ "33" + "m";
+    private String corShow = "\u001B["+ "36" + "m";
+    private String limparTexto = "\u001B["+"m";
+    private static Scanner scan = new Scanner(System.in);
     
     protected String nome;
     protected double money;
@@ -26,13 +27,12 @@ public class Jogador{
     protected long mana;
     protected long manaMax;
     protected long xp;
-    protected long xp_para_upar;
+    protected long xpPraUpar;
     protected int forca;
     protected int constituicao;
     protected int inteligencia;
     protected int nivel;
     protected boolean vivo;
-    private static Scanner scan = new Scanner(System.in);
 
     public Jogador(String nome, int nivel){
         this.vivo = true;
@@ -43,14 +43,14 @@ public class Jogador{
         this.constituicao=1;
         this.inteligencia=1;
         this.forca=1;
-        this.xp_para_upar = 10 * (int)Math.pow(2, nivel);
+        this.xpPraUpar = 10 * (int)Math.pow(2, nivel);
 
-        long pontos_de_habilidade = nivel-1;
-        long count_nivel = 1;
+        long pontosDeHabilidade = nivel-1;
+        long countNivel = 1;
         
-        if(pontos_de_habilidade>0)
-            while (pontos_de_habilidade > 0){
-                System.out.println("Distribua seus pontos de habilidade - " + "Pontos disponíveis: " + pontos_de_habilidade);
+        if(pontosDeHabilidade>0)
+            while (pontosDeHabilidade > 0){
+                System.out.println("Distribua seus pontos de habilidade - " + "Pontos disponíveis: " + pontosDeHabilidade);
                 System.out.println("Pontos de Força: "+ this.forca);
                 System.out.println("Pontos de Inteligência: "+ this.inteligencia);
                 System.out.println("Pontos de Constituição: "+this.constituicao);
@@ -59,25 +59,25 @@ public class Jogador{
                 clearBuffer(scan);
                 switch (opt) {
                     case 1:
-                        count_nivel++;
-                        this.vidaMax += ( (this.constituicao + 5) * 4 * count_nivel);
-                        this.manaMax += ( (this.inteligencia + 5) * 2 * count_nivel);
+                        countNivel++;
+                        this.vidaMax += ( (this.constituicao + 5) * 4 * countNivel);
+                        this.manaMax += ( (this.inteligencia + 5) * 2 * countNivel);
                         this.forca++;
-                        pontos_de_habilidade--;
+                        pontosDeHabilidade--;
                         break;
                     case 2:
-                        count_nivel++;
-                        this.vidaMax += ( (this.constituicao + 5) * 4 * count_nivel);
+                        countNivel++;
+                        this.vidaMax += ( (this.constituicao + 5) * 4 * countNivel);
                         this.inteligencia ++;
-                        this.manaMax += ( (this.inteligencia + 5) * 2 * count_nivel);
-                        pontos_de_habilidade--;
+                        this.manaMax += ( (this.inteligencia + 5) * 2 * countNivel);
+                        pontosDeHabilidade--;
                         break;
                     case 3:
-                        count_nivel++;
-                        this.manaMax += ( (this.inteligencia + 5) * 2 * count_nivel);
+                        countNivel++;
+                        this.manaMax += ( (this.inteligencia + 5) * 2 * countNivel);
                         this.constituicao++;
-                        this.vidaMax += ( (this.constituicao + 5) * 4 * count_nivel);
-                        pontos_de_habilidade--;
+                        this.vidaMax += ( (this.constituicao + 5) * 4 * countNivel);
+                        pontosDeHabilidade--;
                         break;
                     default:
                         System.out.println("Opção inválida, digite novamente");
@@ -87,8 +87,8 @@ public class Jogador{
         this.vida = vidaMax;
         this.mana= manaMax;
 
-        System.out.print(cor_show+"\n\n\nSeu personagem foi criado, olhe os dados dele:"+this);
-        System.out.println(limpar_texto);
+        System.out.print(corShow+"\n\n\nSeu personagem foi criado, olhe os dados dele:"+this);
+        System.out.println(limparTexto);
     }
 
     public Jogador(){
@@ -105,16 +105,16 @@ public class Jogador{
         this.constituicao=1;
         this.inteligencia=1;
         this.forca=1;
-        this.xp_para_upar = 10 * (int)Math.pow(2, nivel);
+        this.xpPraUpar = 10 * (int)Math.pow(2, nivel);
         this.pocoesMax = this.nivel;
         this.pocoes = this.nivel;
 
-        long pontos_de_habilidade = nivel-1;
-        long count_nivel = 1;
+        long pontosDeHabilidade = nivel-1;
+        long countNivel = 1;
         
-        if(pontos_de_habilidade>0)
-            while (pontos_de_habilidade > 0){
-                System.out.println("Distribua seus pontos de habilidade - " + "Pontos disponíveis: " + pontos_de_habilidade);
+        if(pontosDeHabilidade>0)
+            while (pontosDeHabilidade > 0){
+                System.out.println("Distribua seus pontos de habilidade - " + "Pontos disponíveis: " + pontosDeHabilidade);
                 System.out.println("Pontos de Força: "+ this.forca);
                 System.out.println("Pontos de Inteligência: "+ this.inteligencia);
                 System.out.println("Pontos de Constituição: "+this.constituicao);
@@ -122,25 +122,25 @@ public class Jogador{
                 int opt = scan.nextInt();
                 switch (opt) {
                     case 1:
-                        count_nivel++;
-                        this.vidaMax += ( (this.constituicao + 5) * 4 * count_nivel);
-                        this.manaMax += ( (this.inteligencia + 5) * 2 * count_nivel);
+                        countNivel++;
+                        this.vidaMax += ( (this.constituicao + 5) * 4 * countNivel);
+                        this.manaMax += ( (this.inteligencia + 5) * 2 * countNivel);
                         this.forca++;
-                        pontos_de_habilidade--;
+                        pontosDeHabilidade--;
                         break;
                     case 2:
-                        count_nivel++;
-                        this.vidaMax += ( (this.constituicao + 5) * 4 * count_nivel);
+                        countNivel++;
+                        this.vidaMax += ( (this.constituicao + 5) * 4 * countNivel);
                         this.inteligencia ++;
-                        this.manaMax += ( (this.inteligencia + 5) * 2 * count_nivel);
-                        pontos_de_habilidade--;
+                        this.manaMax += ( (this.inteligencia + 5) * 2 * countNivel);
+                        pontosDeHabilidade--;
                         break;
                     case 3:
-                        count_nivel++;
-                        this.manaMax += ( (this.inteligencia + 5) * 2 * count_nivel);
+                        countNivel++;
+                        this.manaMax += ( (this.inteligencia + 5) * 2 * countNivel);
                         this.constituicao++;
-                        this.vidaMax += ( (this.constituicao + 5) * 4 * count_nivel);
-                        pontos_de_habilidade--;
+                        this.vidaMax += ( (this.constituicao + 5) * 4 * countNivel);
+                        pontosDeHabilidade--;
                         break;
                     default:
                         System.out.println("Opção inválida, digite novamente");
@@ -150,8 +150,8 @@ public class Jogador{
         this.vida = vidaMax;
         this.mana= manaMax;
 
-        System.out.print(cor_show+"\n\n\nSeu personagem foi criado, olhe os dados dele:"+this);
-        System.out.println(limpar_texto);
+        System.out.print(corShow+"\n\n\nSeu personagem foi criado, olhe os dados dele:"+this);
+        System.out.println(limparTexto);
         clearBuffer(scan);
     }
 
@@ -159,7 +159,7 @@ public class Jogador{
         String nome = "| Nome: "+ this.nome, 
         mana        = " | Mana: "+ this.mana+"/"+this.manaMax,
         vida        = " | Vida: "+ this.vida+"/"+this.vidaMax,
-        xp          = " | Xp: " + this.xp+"/" + this.xp_para_upar,
+        xp          = " | Xp: " + this.xp+"/" + this.xpPraUpar,
         pocoes      = " | Poções: "+ this.pocoes+"/"+this.pocoesMax,
         nivel       = " | Nivel: "+ this.nivel,
         forca       = " | Força: "+ this.forca,
@@ -175,10 +175,10 @@ public class Jogador{
         return "\n\n\n"+saida+"\n\n\n";
     }
 
-    public void upar(long xp_sobrando){
+    public void upar(long xpSobrando){
         System.out.println("\n\n\n");
-        System.out.print(cor_levelup+"!!!!!!!!!!!!!!!!!!!!!!!!!!!! Você Subiu de Nível !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(limpar_texto);
+        System.out.print(corLevelUp+"!!!!!!!!!!!!!!!!!!!!!!!!!!!! Você Subiu de Nível !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(limparTexto);
 
         System.out.println("\n\n\nVocê tem um ponto para aumentar um atributo");
         System.out.println("Pontos Atuais: Força: "+ this.forca+" | Inteligência: "+this.inteligencia+" | Constituição: "+this.constituicao);
@@ -206,38 +206,38 @@ public class Jogador{
                 System.out.println("Opção inválida, digite novamente");
         }
         this.nivel++;
-        this.xp_para_upar = 10 * (int)Math.pow(2, nivel);
+        this.xpPraUpar = 10 * (int)Math.pow(2, nivel);
         this.xp = 0;
         this.vida = vidaMax;
         this.mana= manaMax;
         this.pocoesMax = nivel;
-        this.receber_xp_puro(xp_sobrando);
+        this.receberXpPuro(xpSobrando);
     }
     
-    public void receber_xp(long xp_inimigo){
-        if(xp_inimigo == 0){
+    public void receberXp(long xpInimigo){
+        if(xpInimigo == 0){
             return;
         }
-        long xp_ganho = (int) ( xp_inimigo / (this.nivel*2) );
-        if(xp_ganho == 0)
-            xp_ganho = 1;
-        System.out.println("Xp ganho : "+xp_ganho);
-        if(xp_ganho+this.xp>this.xp_para_upar){
-            this.upar(xp_ganho+this.xp-this.xp_para_upar);
+        long xpGanho = (int) ( xpInimigo / (this.nivel*2) );
+        if(xpGanho == 0)
+            xpGanho = 1;
+        System.out.println("Xp ganho : "+xpGanho);
+        if(xpGanho+this.xp>this.xpPraUpar){
+            this.upar(xpGanho+this.xp-this.xpPraUpar);
         }else
-            this.xp+=xp_ganho;
+            this.xp+=xpGanho;
     }
 
-    public void receber_xp_puro(long xp_inimigo){
-        if(xp_inimigo == 0){
+    public void receberXpPuro(long xpInimigo){
+        if(xpInimigo == 0){
             return;
         }
-        long xp_ganho = xp_inimigo;
+        long xpGanho = xpInimigo;
 
-        if(xp_ganho+this.xp>=this.xp_para_upar){
-            this.upar(xp_ganho+this.xp-this.xp_para_upar);
+        if(xpGanho+this.xp>=this.xpPraUpar){
+            this.upar(xpGanho+this.xp-this.xpPraUpar);
         }else
-            this.xp+=xp_ganho;
+            this.xp+=xpGanho;
     }
 
     public long atacar(){
@@ -256,8 +256,8 @@ public class Jogador{
             rand = (random.nextInt(this.forca));
             rand2 = (random.nextInt(this.nivel));
             atacar = 2*(this.forca * (rand2+1)*this.forca);   
-            System.out.print(cor_critico+"!!!Você acertou um Ataque Crítico!!!");
-            System.out.println(limpar_texto);
+            System.out.print(corCritico+"!!!Você acertou um Ataque Crítico!!!");
+            System.out.println(limparTexto);
             return atacar;    
         }
     }
@@ -278,8 +278,8 @@ public class Jogador{
             rand2 = (random.nextInt(this.nivel));
 
             defender = (long) 4*(this.constituicao*(rand2+1)*this.constituicao);   
-            System.out.print(cor_defesa+"!!! Sua defesa é perfeita e inabalável !!!"); 
-            System.out.println(limpar_texto);
+            System.out.print(corDefesa+"!!! Sua defesa é perfeita e inabalável !!!"); 
+            System.out.println(limparTexto);
         }
         return defender;
     }
@@ -305,7 +305,7 @@ public class Jogador{
         }
     }
     
-    public void receber_ataque(Mob inimigo, boolean defender){
+    public void receberAtaque(Mob inimigo, boolean defender){
         if(!vivo){
             System.out.println("Seu inimigo chutou seu corpo morto no chão");
             return;
@@ -317,18 +317,18 @@ public class Jogador{
             defesa = this.defender();
         }
         
-        long calculo_dano = defesa-dano; 
-        this.vida += calculo_dano;
+        long calculoDano = defesa-dano; 
+        this.vida += calculoDano;
 
         if(defesa-dano<=0){
             if(vida>= vidaMax/2){
-                System.out.println("Cuidado! você levou "+(-1*calculo_dano)+" de dano de seu inimigo");
+                System.out.println("Cuidado! você levou "+(-1*calculoDano)+" de dano de seu inimigo");
             }else if(vida< vidaMax/2 && vida > vidaMax/4){
-                System.out.println("Preste atenção! você já está com a metade da vida, é melhor você se defender ou se curar com uma poção, seu adversário te causou "+(-1*calculo_dano)+" de dano");
+                System.out.println("Preste atenção! você já está com a metade da vida, é melhor você se defender ou se curar com uma poção, seu adversário te causou "+(-1*calculoDano)+" de dano");
             }else if(vida < vidaMax/4 && vida > 0){
-                System.out.println("Pelo amor das Deusas, você precisa se curar urgentemente, sua vida já está abaixo dos 25%, seu adversário te causou "+(-1*calculo_dano)+" de dano");
+                System.out.println("Pelo amor das Deusas, você precisa se curar urgentemente, sua vida já está abaixo dos 25%, seu adversário te causou "+(-1*calculoDano)+" de dano");
             }else if(vida <= 0){
-                System.out.println("Infelizmente você não continuou sua caminhada após essa jornada, você caiu mas sua morte não será em vão, ouros verão seu exemplo e irão lutar por um mundo melhor sem esses monstros\n"+"Seu inimigo te causou "+(-1*calculo_dano)+" de dano e com isso causou também sua morte");
+                System.out.println("Infelizmente você não continuou sua caminhada após essa jornada, você caiu mas sua morte não será em vão, ouros verão seu exemplo e irão lutar por um mundo melhor sem esses monstros\n"+"Seu inimigo te causou "+(-1*calculoDano)+" de dano e com isso causou também sua morte");
                 this.vivo=false;
             }
         }else{
@@ -348,22 +348,19 @@ public class Jogador{
         for (long i = 0; i < n; i++) {
             saida = "-" + saida + "-";
         } 
-        System.out.print("\n\n\n"+cor_show+saida);
-        System.out.println(limpar_texto+"\n\n");
+        System.out.print("\n\n\n"+corShow+saida);
+        System.out.println(limparTexto+"\n\n");
     }
 
     public void reabastecerPocoes(){
-        if(!vivo){
+        if(!vivo)
             return;
-        }
 
-        if(pocoes==pocoesMax){
+        if(pocoes==pocoesMax)
             System.out.println("Você já está com sua bolsa de poções cheia");
-            return;
-        }else{
-            System.out.println("Bolsa de poções reabastecida");
-            
-        }
+        else
+            System.out.println("Bolsa de poções reabastecida");  
+        
     }
 
     private static void clearBuffer(Scanner scanner) {
