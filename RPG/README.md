@@ -3,6 +3,6 @@
 <img src="OMagoEImplacavel.jpg" width="520">
 
 ### Códigos: 
-#### 💻 - [Main](Main.java)
+#### 💻 - [Main](Principal.java)
 #### 🐲 - [Mobs](Mobs/Mob.java)
 #### 🧙🏻‍♂️ - [Jogador](Jogadores/Jogador.java)
