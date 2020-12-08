@@ -1,9 +1,10 @@
 # S02 - Projeto 02
 ## E02 - Rpg de Terminal (Tentativa de criar um jogo em andamento kk)
 
-<center>
-    <img src="OMagoEImplacavel.jpg" width="300" align=”middle”>
-</center>
+<div align="center">
+<img src="OMagoEImplacavel.jpg" >
+<p>Perfectly balanced</p>
+</div>
 
 ## - Códigos: 
 - 💻 [Main](Principal.java)
