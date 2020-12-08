@@ -3,7 +3,6 @@
 
 <div align="center">
 <img src="OMagoEImplacavel.jpg" >
-<p>Perfectly balanced</p>
 </div>
 
 ## - Códigos: 
