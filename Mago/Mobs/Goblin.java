@@ -4,16 +4,33 @@ package Mobs;
 public class Goblin extends Mob {
     public Goblin(){
         super();
-        super.name = "Goblin";
+        super.nome = "Goblin";
+
+        if(this.nivel >= 1 &&  this.nivel < 50) {
+            this.nome += " Desatrado";
+        }else if(this.nivel>=50 && this.nivel<250){
+            this.nome += " Experiente";
+        }else if(this.nivel>=250 && this.nivel<500){
+            this.nome += " Veterano";
+        }else if(this.nivel>=500 && this.nivel<1000){
+            this.nome += " Mestre";
+        }else if(this.nivel>=1000){
+            this.nome = "Rei dos Goblins";
+        }
     }
     // x = 1/2 = 0 ; y = 1-x = 1-0 = 1;
     // x = 3/2 = 1 ; y = 2-x = 3-1 = 2;
     // x = 5/2 = 2 ; y = 5-x = 5-2 = 1;
     public Goblin(int nivel,String nome){
-        super(nivel, nome);
+        this.nivel = nivel;
+        this.nome = nome;
         this.vivo = true;
         this.vidaMax=0;
         this.manaMax=0;
+        this.pocoes = nivel/4;
+        if (pocoes<=0) {
+            pocoes =1;
+        }
         if(nivel>1){
             int div = (nivel-1) /2;
             int div2 = (nivel-1)-div;
@@ -30,19 +47,19 @@ public class Goblin extends Mob {
             this.manaMax += ( (this.inteligencia + 2) * nivel);
         }
 
-        this.vidaAtual=vidaMax;
-        this.manaAtual=manaMax;
+        this.vida=vidaMax;
+        this.mana=manaMax;
 
         if(this.nivel >= 1 &&  this.nivel < 50) {
-            this.name += " Desatrado";
+            this.nome += " Desatrado";
         }else if(this.nivel>=50 && this.nivel<250){
-            this.name += " Escudeiro";
+            this.nome += " Escudeiro";
         }else if(this.nivel>=250 && this.nivel<500){
-            this.name += " Veterano";
+            this.nome += " Veterano";
         }else if(this.nivel>=500 && this.nivel<1000){
-            this.name += " Comandante";
+            this.nome += " Comandante";
         }else if(this.nivel>=1000){
-            this.name = "Rei dos Goblin";
+            this.nome = "Rei dos Goblin";
         }
     }
 

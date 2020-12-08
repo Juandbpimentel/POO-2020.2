@@ -1,5 +1,7 @@
 package Mobs;
 
+import Jogadores.Jogador;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -8,23 +10,25 @@ public class Mob{
     public static String cor_critico = "\u001B["+ "31" + "m";
     public static String limpar_texto = "\u001B["+"m";
 
-    String name;
-    long vidaAtual;
-    long vidaMax;
-    long manaAtual;
-    long manaMax;
-    int forca;
-    int constituicao;
-    int inteligencia;
-    int nivel;
-    boolean vivo;
+    String nome;
+    protected long vida;
+    protected long vidaMax;
+    protected long mana;
+    protected long manaMax;
+    protected long pocoes;
+    protected long dinheiro;
+    protected int forca;
+    protected int constituicao;
+    protected int inteligencia;
+    protected int nivel;
+    protected boolean vivo;
     
     public static Scanner scan = new Scanner(System.in);
 
     //Construtores
-    public Mob(String name, int nivel,int forca ,int constituicao ,int inteligencia){
+    public Mob(String nome, int nivel,int forca ,int constituicao ,int inteligencia){
         this.vivo = true;
-        this.name = name;
+        this.nome = nome;
         this.nivel = nivel;
         this.vidaMax=0;
         this.manaMax=0;
@@ -32,21 +36,32 @@ public class Mob{
         this.inteligencia = inteligencia;
         this.forca = forca;
 
-        for (int i = 0; i < nivel; i++) {
+        this.pocoes = nivel/4;
+        if (pocoes<=0) {
+            pocoes =1;
+        }
+
+        for (int i = 0; i < nivel; i++){
             this.vidaMax += ( (this.constituicao + 5) * nivel);
             this.manaMax += ( (this.inteligencia + 5) * nivel);
         }
         
-        this.vidaAtual=vidaMax;
-        this.manaAtual=manaMax;
+        this.vida=vidaMax;
+        this.mana=manaMax;
     }
     
     public Mob(int nivel, String nome){
-        this.name = nome;
+        this.nome = nome;
         this.vivo = true;
         this.nivel = nivel;
         this.vidaMax=0;
         this.manaMax=0;
+        
+        this.pocoes = nivel/4;
+        if (pocoes<=0) {
+            pocoes =1;
+        }
+
         if(nivel>1){
             int div = (nivel-1) /2;
             int div2 = (nivel-1)-div;
@@ -63,41 +78,68 @@ public class Mob{
             this.manaMax += ( (this.inteligencia + 2) * nivel);
         }
         
-        this.vidaAtual=vidaMax;
-        this.manaAtual=manaMax;
+        this.vida=vidaMax;
+        this.mana=manaMax;
         
         if(this.nivel >= 1 &&  this.nivel < 50) {
-            this.name += " Desatrado";
+            this.nome += " Desatrado";
         }else if(this.nivel>=50 && this.nivel<250){
-            this.name += " Escudeiro";
+            this.nome += " Escudeiro";
         }else if(this.nivel>=250 && this.nivel<500){
-            this.name += " Veterano";
+            this.nome += " Veterano";
         }else if(this.nivel>=500 && this.nivel<1000){
-            this.name += " Comandante";
+            this.nome += " Comandante";
         }else if(this.nivel>=1000){
-            this.name = "Rei dos Goblin";
+            this.nome = "Rei dos(as) "+this.nome+"s" ;
         }
     }
     
     public Mob(){
+        this.nome = "Slime";
         this.vivo = true;
-        this.name = "Slime";
         this.nivel = 1;
-        this.vidaMax=5;
-        this.manaMax=5;
-        this.vidaAtual = vidaMax;
-        this.manaAtual = manaMax;
-        this.constituicao = 1;
-        this.inteligencia = 1;
-        this.forca = 1;
+        this.vidaMax=0;
+        this.manaMax=0;
+        this.pocoes = nivel/4;
+        if (pocoes<=0) {
+            pocoes =1;
+        }
+        if(nivel>1){
+            int div = (nivel-1) /2;
+            int div2 = (nivel-1)-div;
+            this.constituicao = 1 + div;
+            this.inteligencia = 1;
+            this.forca = 1 + div2;    
+        }else{
+            this.constituicao = 1;
+            this.inteligencia = 1;
+            this.forca = 1;
+        }
+        for(int i = 0; i < nivel; i++){
+            this.vidaMax += ( (this.constituicao + 5) * nivel);
+            this.manaMax += ( (this.inteligencia + 2) * nivel);
+        }
+        
+        this.vida=vidaMax;
+        this.mana=manaMax;
+        
+        if(this.nivel >= 1 &&  this.nivel < 50) {
+            this.nome += " Desatrado";
+        }else if(this.nivel>=50 && this.nivel<250){
+            this.nome += " Experiente";
+        }else if(this.nivel>=250 && this.nivel<500){
+            this.nome += " Veterano";
+        }else if(this.nivel>=500 && this.nivel<1000){
+            this.nome += " Mestre";
+        }else if(this.nivel>=1000){
+            this.nome = "Rei dos Slimes";
+        }
     }
     
-    
-    
     public String toString(){
-        String nome = "| Monstro: "+ this.name, 
-        mana = " | Mana: "+ this.manaAtual+"/"+this.manaMax,
-        vida = " | Vida: "+ this.vidaAtual+"/"+this.vidaMax,
+        String nome = "| Monstro: "+ this.nome, 
+        mana = " | Mana: "+ this.mana+"/"+this.manaMax,
+        vida = " | Vida: "+ this.vida+"/"+this.vidaMax,
         nivel= " | Nivel: "+ this.nivel,
         forca= " | Força: "+ this.forca,
         inteligencia= " | Inteligência: "+this.inteligencia,
@@ -116,63 +158,71 @@ public class Mob{
         return ( 10 * (long) Math.pow(2,this.nivel));
     }
 
-    void receber_ataque(long dano, long defesa){
+    void receber_ataque(Jogador inimigo, boolean defender){
         if(!vivo){
+            System.out.println("Seu inimigo já está morto, não seja um monstro como ele");
             return;
         }
+        long defesa = 0;
+        long dano = inimigo.atacar();
+
+        if(defender){
+            defesa = this.defender();
+        }
+
         Random rand = new Random();
         long calculo_dano = defesa-dano; 
-        this.vidaAtual += calculo_dano;
+        this.vida += calculo_dano;
 
         if(defesa-dano<=0){
-            if(vidaAtual>= vidaMax/2){
+            if(vida>= vidaMax/2){
                 switch (rand.nextInt(3)) {
                     case 0:
-                        System.out.println(this.name+" diz - Ai!!! Seu merdinha, você vai pagar!\n"+"Seu inimigo levou "+calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Ai!!! Seu merdinha, você vai pagar!\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
                         break;
                     case 1:
-                        System.out.println(this.name+" diz - Ouch! Seu maldito, quero ver você acertar de novo, tenho certeza que foi pura sorte!\n"+"Seu inimigo levou "+calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Ouch! Seu maldito, quero ver você acertar de novo, tenho certeza que foi pura sorte!\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
                         break;
                     case 2:
-                        System.out.println(this.name+" diz - Humpf! *Cospe um dente* É só isso que você tem? Não dá nem pro gasto!\n"+"Seu inimigo levou "+calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Humpf! *Cospe um dente* É só isso que você tem? Não dá nem pro gasto!\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
                         break;
                 }
-            }else if(vidaAtual< vidaMax/2 && vidaAtual > vidaMax/4){
+            }else if(vida< vidaMax/2 && vida > vidaMax/4){
                 switch(rand.nextInt(2)){
                     case 0:
-                        System.out.println(this.name+" diz - Grrrrrrr! *O inimigo grune de dor*\n"+"Seu inimigo levou "+calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Grrrrrrr! *O inimigo grune de dor*\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
                         break;
                     case 1:
-                        System.out.println(this.name+" diz - Ahrg hurrrm *Seu inimigo está bem machucado e sangrando*\n"+"Seu inimigo levou "+calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Ahrg hurrrm *Seu inimigo está bem machucado e sangrando*\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
                         break;
                 }
-            }else if(vidaAtual < vidaMax/4 && vidaAtual > 0){
+            }else if(vida < vidaMax/4 && vida > 0){
                 switch(rand.nextInt(2)){
                     case 0:
-                        System.out.println(this.name+" diz - Agrhrrr que dor, eu não vou aguentar muito mais, mas não vou deixar que passe por mim\n"+"Seu inimigo levou "+calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Agrhrrr que dor, eu não vou aguentar muito mais, mas não vou deixar que passe por mim\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
                         break;
                     case 1:
-                        System.out.println(this.name+" diz - Ughrrr *Seu inimigo cospe sangue*\n"+"Seu inimigo levou "+calculo_dano+" de dano");   
+                        System.out.println(this.nome+" diz - Ughrrr *Seu inimigo cospe sangue*\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano");   
                         break;
                 }
-            }else if(vidaAtual <= 0){
-                System.out.println(this.name+" diz - Aahhgrrrrrr! *O inimigo cai inerte no chão*\n"+"Seu inimigo levou "+calculo_dano+" de dano e morreu");
+            }else if(vida <= 0){
+                System.out.println(this.nome+" diz - Aahhgrrrrrr! *O inimigo cai inerte no chão*\n"+"Seu inimigo levou "+-1*calculo_dano+" de dano e morreu");
                 this.vivo=false;
             }
                 
         }else{
-            System.out.println("Hahahaha, não foi dessa vez moleque! - diz " + this.name);
+            System.out.println("Hahahaha, não foi dessa vez moleque! - diz " + this.nome);
         }
     }
 
-    long atacar(){
+    public long atacar(){
         if(!vivo){
             return 0;
         }
         Random random = new Random();
         long atacar = 0;
         int rand = random.nextInt(100), rand2 = 0;
-        if((rand+1)>1){
+        if((rand+1)>1+(0.1*nivel)+(0.1*forca)){
             rand = (random.nextInt(this.forca));
             rand2 = (random.nextInt(this.nivel));
             atacar = (this.forca * (rand2+1)*this.forca);
@@ -209,9 +259,9 @@ public class Mob{
     }
 
     public String show(){
-        String nome = "| Nome: "+ this.name, 
-        mana   = " | Mana: "+ this.manaAtual+"/"+this.manaMax,
-        vida   = " | Vida: "+ this.vidaAtual+"/"+this.vidaMax;
+        String nome = "| Nome: "+ this.nome, 
+        mana   = " | Mana: "+ this.mana+"/"+this.manaMax,
+        vida   = " | Vida: "+ this.vida+"/"+this.vidaMax;
 
         String saida = nome + mana + vida;
         long n = saida.length();
@@ -224,6 +274,10 @@ public class Mob{
 
     public void morrer(){
         this.vivo = false;
+    }
+
+    public boolean checarVivo(){
+        return this.vivo;
     }
     
 }

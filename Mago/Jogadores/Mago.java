@@ -6,20 +6,19 @@ public class Mago extends Jogador {
     public static String cor_critico = "\u001B["+ "35" + "m";
     public static String limpar_texto = "\u001B["+"m";
 
-    Mago(String name){
-        super("Mago Implacável "+name, 1);
+    public Mago(String nome){
+        super("Mago Implacável "+nome, 1);
     }
 
-    Mago(String name, int nivel){
-        super("Mago Implacável "+name, nivel);
+    public Mago(String nome, int nivel){
+        super("Mago Implacável "+nome, nivel);
     }
 
     public Mago() {
         super();
-        this.name = "Mago Implacável " + name;
+        this.nome = "Mago Implacável " + nome;
 	}
 
-	@Override
     public long atacar(){
         if(!vivo){
             return 0;
@@ -27,7 +26,7 @@ public class Mago extends Jogador {
         Random random = new Random();
         long atacar = 0;
         int rand = random.nextInt(100), rand2 = 0;
-        if((rand+1)>1){
+        if((rand+1)>1+(0.1*nivel)+(0.1*inteligencia)){
             rand = (random.nextInt(this.inteligencia));
             rand2 = (random.nextInt(this.nivel));
             atacar = (this.inteligencia * (rand2+1)*this.inteligencia);

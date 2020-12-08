@@ -7,5 +7,8 @@
 - ### E02 - [Git](Projeto_01_Inicio/E02)
 
 ## S02: 
-- ### E01 - [Java Inicio e Java Exercício](Projeto_02_Java/Inicio_e_exercicio)
-- ### E02 - [Mas...](Projeto_02_Java/Mago)
+- ### E01 - [Java Inicio e Java Exercício](Projeto_02_Java/)
+
+## Projeto Extra - [RPG de Terminal](Mago/)
+
+
