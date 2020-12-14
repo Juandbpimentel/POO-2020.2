@@ -1,4 +1,4 @@
-import java.util.Scanner;
+//import java.util.Scanner;
     public class Ninja {
         public static void main(String[] args) {
             Calango dead = new Calango(100);
@@ -132,7 +132,7 @@ class Calango {
     }
 
     public static void main(String[] args) {
-
+        System.out.println("main");
     }
 }
 
