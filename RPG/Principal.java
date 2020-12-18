@@ -20,6 +20,21 @@ public class Principal {
         for (int i = 0; i < 100; i++) {
             Mago.atacar();
         }
+
+    }
+
+    public void lutarMenu(Jogador jogador,Mob inimigo){
+        while (true){
+            if(!jogador.checarVivo()){
+                System.out.println("Você foi derrotado por "+inimigo.getNome());
+                break;
+            }
+
+            if(!inimigo.checarVivo()){
+                System.out.println("Você derrotou "+inimigo.getNome());
+                break;
+            }
+        }
     }
     
 

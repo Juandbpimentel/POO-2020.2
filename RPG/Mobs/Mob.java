@@ -136,6 +136,10 @@ public class Mob{
         }
     }
     
+    public String getNome() {
+        return nome;
+    }
+    
     public String toString(){
         String nome = "| Monstro: "+ this.nome, 
         mana = " | Mana: "+ this.mana+"/"+this.manaMax,

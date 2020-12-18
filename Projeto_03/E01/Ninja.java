@@ -1,22 +1,22 @@
 import java.util.Scanner;
-    public class Ninja {
-        public static void main(String[] args) {
-            Calango dead = new Calango(100);
-            Calango pool = new Calango(100);
-            System.out.println(dead);
-            System.out.println(pool);
-    
-            dead.brigar(pool);
-            dead.brigar(pool);
-            dead.brigar(pool);
-            dead.brigar(pool);
-            dead.brigar(pool);
-    
-            System.out.println(dead);
-            System.out.println(pool);
-            pool.brigar(dead);
-        }
+public class Ninja{
+    public static void main(String[] args) {
+        Calango dead = new Calango(100);
+        Calango pool = new Calango(100);
+        System.out.println(dead);
+        System.out.println(pool);
+
+        dead.brigar(pool);
+        dead.brigar(pool);
+        dead.brigar(pool);
+        dead.brigar(pool);
+        dead.brigar(pool);
+
+        System.out.println(dead);
+        System.out.println(pool);
+        pool.brigar(dead);
     }
+}
 
 
 class Mosquito {

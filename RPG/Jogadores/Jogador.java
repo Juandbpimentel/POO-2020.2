@@ -155,6 +155,10 @@ public class Jogador{
         clearBuffer(scan);
     }
 
+    public String getNome() {
+        return nome;
+    }
+    
     public String toString(){
         String nome = "| Nome: "+ this.nome, 
         mana        = " | Mana: "+ this.mana+"/"+this.manaMax,
