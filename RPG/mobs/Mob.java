@@ -1,10 +1,10 @@
 package mobs;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 import jogadores.Jogador;
-
 public class Mob{
     public static String corDefesa = "\u001B["+ "31" + "m";
     public static String corCritico = "\u001B["+ "31" + "m";
@@ -155,7 +155,11 @@ public class Mob{
     }
     
     long droparXp(){
-        return ( 10 * (long) Math.pow(2,this.nivel));
+        return (long)( 1.25 * Math.pow(2,this.nivel));
+    }
+
+    long droparDinheiro(){
+        return ( 5 * (long) Math.pow(2,this.nivel));
     }
 
     void receberAtaque(Jogador inimigo, boolean defender){
@@ -229,14 +233,13 @@ public class Mob{
         long atacar = 0;
         int rand = random.nextInt(100), rand2 = 0;
         if((rand+1)>1+(0.1*nivel)+(0.1*forca)){
-            rand = (random.nextInt(this.forca));
             rand2 = (random.nextInt(this.nivel));
-            atacar = (this.forca * (rand2+1)*this.forca);
+            atacar = (this.forca * ((rand2+1)+this.forca));
         }else{
-            rand = (random.nextInt(this.forca));
             rand2 = (random.nextInt(this.nivel));
-            atacar = 2*(this.forca * (rand2+1)*this.forca);   
-            System.out.println("!!!Você acertou um Ataque Crítico!!!");    
+            atacar = 2*(this.forca * ((rand2+1)+this.forca));   
+            System.out.print(corCritico+"!!!Você acertou um Ataque Crítico!!!");
+            System.out.println(limparTexto);    
         }
         return atacar;
     }
@@ -258,7 +261,8 @@ public class Mob{
             rand2 = (random.nextInt(this.nivel));
 
             defender = (long) 4*(this.constituicao*(rand2+1)*this.constituicao);   
-            System.out.println(">>> Defesa Perfeita: "+defender); 
+            System.out.print(corCritico+">>> Defesa Perfeita do inimigo: "+defender);
+            System.out.println(limparTexto); 
 
         }
         return defender;

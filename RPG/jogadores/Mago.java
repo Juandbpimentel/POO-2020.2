@@ -30,11 +30,11 @@ public class Mago extends Jogador {
         if((rand+1)>1+(0.1*nivel)+(0.1*inteligencia)){
             rand = (random.nextInt(this.inteligencia));
             rand2 = (random.nextInt(this.nivel));
-            atacar = (this.inteligencia * (rand2+1)*this.inteligencia);
+            atacar = (this.inteligencia * ((rand2+1)+this.inteligencia));
         }else{
             rand = (random.nextInt(this.inteligencia));
             rand2 = (random.nextInt(this.nivel));
-            atacar = 2*(this.inteligencia * (rand2+1)*this.inteligencia);   
+            atacar = 2*(this.inteligencia * ((rand2+1)+this.inteligencia));   
             System.out.print(corCritico+"!!! A magia está do seu lado, você acertou um Ataque Crítico !!!");    
             System.out.println(limparTexto);
         }

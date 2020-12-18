@@ -18,6 +18,7 @@ public class Jogador{
     private String limparTexto = "\u001B["+"m";
     private static Scanner scan = new Scanner(System.in);
     
+    protected long gold;
     protected String nome;
     protected double money;
     protected long vida;
@@ -35,6 +36,7 @@ public class Jogador{
     protected boolean vivo;
 
     public Jogador(String nome, int nivel){
+        this.gold = 0;
         this.vivo = true;
         this.nome = nome;
         this.vidaMax = 10;
@@ -98,7 +100,7 @@ public class Jogador{
 
         System.out.print("\n\n\nAgora digite o nivel do seu personagem:\n\n>>> ");
         this.nivel = scan.nextInt();
-        
+        this.gold = 0;
         this.vivo = true;
         this.vidaMax = 10;
         this.manaMax = 10;
@@ -248,14 +250,12 @@ public class Jogador{
         long atacar = 0;
         int rand = random.nextInt(100), rand2 = 0;
         if((rand+1)>1+(0.1*nivel)+(0.1*forca)){
-            rand = (random.nextInt(this.forca));
             rand2 = (random.nextInt(this.nivel));
-            atacar = (this.forca * (rand2+1)*this.forca);
+            atacar = (this.forca * ((rand2+1)+this.forca));
             return atacar;
         }else{
-            rand = (random.nextInt(this.forca));
             rand2 = (random.nextInt(this.nivel));
-            atacar = 2*(this.forca * (rand2+1)*this.forca);   
+            atacar = 2*(this.forca * ((rand2+1)+this.forca));   
             System.out.print(corCritico+"!!!Você acertou um Ataque Crítico!!!");
             System.out.println(limparTexto);
             return atacar;    
