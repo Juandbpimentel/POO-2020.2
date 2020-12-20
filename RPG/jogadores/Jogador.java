@@ -1,11 +1,11 @@
-package Jogadores;
+package jogadores;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import Itens.*;
-import Mobs.Mob;
+import itens.*;
+import mobs.Mob;
 
 public class Jogador{
 

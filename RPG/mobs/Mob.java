@@ -1,9 +1,9 @@
-package Mobs;
+package mobs;
 
 import java.util.Random;
 import java.util.Scanner;
 
-import Jogadores.Jogador;
+import jogadores.Jogador;
 public class Mob{
     public static String corCritico = "\u001B["+ "31" + "m";
     public static String limparTexto = "\u001B["+"m";

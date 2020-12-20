@@ -1,8 +1,8 @@
-package Itens;
-
-import Jogadores.*;
+package itens;
 
 import java.util.Random;
+
+import jogadores.*;
 
 import java.lang.Math;
 

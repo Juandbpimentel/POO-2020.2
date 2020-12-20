@@ -1,7 +1,8 @@
 import java.util.ArrayList;
-import Jogadores.*;
-import Mobs.*;
-import Itens.*;
+
+import itens.*;
+import jogadores.*;
+import mobs.*;
 
 public class Principal {
     

@@ -1,7 +1,9 @@
-package Itens;
+package itens;
 
 import java.util.Random;
-import Jogadores.*;
+
+import jogadores.*;
+
 import java.lang.Math;
 
 public class Armadura extends Item {

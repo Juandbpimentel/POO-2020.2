@@ -1,4 +1,4 @@
-package Mobs;
+package mobs;
 //import java.util.Random;
 
 import java.util.Random;

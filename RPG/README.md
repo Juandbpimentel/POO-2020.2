@@ -6,8 +6,9 @@
 
 ## Rpg de Terminal (Tentativa de criar um jogo em andamento kk)
 
-### Códigos
+### Códigos Principais
 
 - 💻 [Main](Principal.java)
-- 🐲 [Mobs](Mobs\Mob.java)
-- 🧙🏻‍♂️ [Jogador](Jogadores\Jogador.java)
+- 🐲 [Mobs](mobs/Mob.java)
+- 🧙🏻‍♂️ [Jogador](jogadores/Jogador.java)
+- ⛏ [Itens](itens/Item.java)

@@ -1,7 +1,8 @@
-package Itens;
+package itens;
 
 import java.util.Random;
-import Jogadores.*;
+
+import jogadores.*;
 public class Arma extends Item{
     private long bonusAtaque;
 
