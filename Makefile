@@ -1,6 +1,2 @@
-add:
-	git add *
+git status:
 	git status
-
-push:
-	git push origin main
