@@ -1,25 +1,64 @@
 import java.util.ArrayList;
-import jogadores.*;
-import mobs.*;
+import Jogadores.*;
+import Mobs.*;
+import Itens.*;
 
 public class Principal {
-    /*public static void main(String[] args){
-        //Scanner in = new Scanner(System.in);
-        //int defesa_jogador=0,defesa_mob=0,ataque_jogador=0,ataque_mob=0;
     
-        //Mob inimigo = new Goblin();
-        //Mago mago = new Mago();
-        //jogador.main(args);
-        Jogador mago = new Mago();
-        Goblin goblin = new Goblin();
-        System.out.println(goblin);
-        mago.show();
-        System.out.println(mago);
-        for (int i = 0; i < 100; i++) {
-            mago.atacar();
-        }
-<<<<<<< HEAD
+    public static void main(String[] args){
+        ArrayList<Item> vetorDeItens = new ArrayList<Item>();
+        //vetorDeItens.add(new Item());
+        vetorDeItens.add(new Escudo(10,"Escudo de Aço"));
+        vetorDeItens.add(new Armadura(10,"Armadura de Couro Trabalhado"));
+        vetorDeItens.add(new Arma(10,"Espada de Aço Trabalhado"));
 
+        Jogador jogador = new Jogador("Juan",1);
+        //System.out.println(jogador);
+        //System.out.println(jogador.atacar());
+
+        for (Item item : vetorDeItens) {
+            if(eEscudo(item)){
+                Escudo escudo = (Escudo)item;
+                escudo.dropar(jogador);
+            } else if(eArmadura(item)){
+                Armadura armadura = (Armadura)item;
+                armadura.dropar(jogador);
+            } else if(eArma(item)){
+                Arma arma = (Arma) item;
+                arma.dropar(jogador);
+            }
+            jogador.guardarItem(item);
+        }
+        
+        jogador.verEquipados();
+
+        jogador.desequiparArma();
+        jogador.desequiparArmadura();
+        jogador.desequiparEscudo();
+
+        jogador.verEquipados();
+        jogador.verInventario();
+        
+    }
+
+
+
+    public static boolean eEscudo(Item item){
+        if(item.getTipoDeItem().contains("Escudo "))
+            return true;
+        return false;
+    }
+
+    public static boolean eArmadura(Item item){
+        if(item.getTipoDeItem().contains("Armadura "))
+            return true;
+        return false;
+    }
+
+    public static boolean eArma(Item item){
+        if(item.getTipoDeItem().contains("Arma "))
+            return true;
+        return false;
     }
 
     public void lutarMenu(Jogador jogador,Mob inimigo){
@@ -33,27 +72,6 @@ public class Principal {
                 System.out.println("Você derrotou "+inimigo.getNome());
                 break;
             }
-        }
-    }
-||||||| 3f8a7b4
-    }
-=======
-    }*/
->>>>>>> 47f899d345c66b5e2ad36f3811574cf733344df0
-    
-    public static void main(String[] args){
-        ArrayList<Mob> batalha = new ArrayList<Mob>();
-        batalha.add(new Mob(20,"Ogro"));
-        batalha.add(new Mob(3,"Dobby"));
-        Jogador sarah = new Mago();
-
-        for (Mob mob : batalha) {
-            System.out.println(mob);
-        }
-
-        System.out.println(sarah);
-        for(int i =0; i<100;i++){
-            System.out.println(sarah.atacar());
         }
     }
 

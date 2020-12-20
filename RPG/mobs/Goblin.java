@@ -1,9 +1,11 @@
-package mobs;
+package Mobs;
 //import java.util.Random;
 
 import java.util.Random;
 
 public class Goblin extends Mob {
+    public static String corCritico = "\u001B["+ "32" + "m";
+
     public Goblin(){
         super();
         super.nome = "Goblin";
@@ -63,6 +65,49 @@ public class Goblin extends Mob {
         }else if(this.nivel>=1000){
             this.nome = "Rei dos Goblin";
         }
+    }
+
+    public long atacar(){
+        if(!vivo){
+            return 0;
+        }
+        Random random = new Random();
+        long atacar = 0;
+        int rand = random.nextInt(100), rand2 = 0;
+        if((rand+1)>1+(0.1*nivel)+(0.1*forca)){
+            rand2 = (random.nextInt(this.nivel));
+            atacar = (this.forca * ((rand2+1)+this.forca));
+        }else{
+            rand2 = (random.nextInt(this.nivel));
+            atacar = 2*(this.forca * ((rand2+1)+this.forca));   
+            System.out.print(corCritico+"!!!Você acertou um Ataque Crítico!!!");
+            System.out.println(limparTexto);    
+        }
+        return atacar;
+    }
+
+    long defender(){
+        if(!vivo){
+            return 0;
+        }
+        Random random = new Random();
+        long defender = 0;
+        long rand = random.nextInt(100), rand2 = 0;
+        if((rand+1)>1){
+            rand2 = (random.nextInt(this.nivel));
+
+            defender = (this.constituicao *(rand2+1)*this.constituicao);
+            System.out.println(">>> Defesa: "+defender);
+
+        }else{
+            rand2 = (random.nextInt(this.nivel));
+
+            defender = (long) 4*(this.constituicao*(rand2+1)*this.constituicao);   
+            System.out.print(corCritico+">>> Defesa Perfeita do inimigo: "+defender);
+            System.out.println(limparTexto); 
+
+        }
+        return defender;
     }
 
 }

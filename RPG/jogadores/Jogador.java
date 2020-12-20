@@ -1,9 +1,12 @@
-package jogadores;
+package Jogadores;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import mobs.Mob;
+import Itens.*;
+import Mobs.Mob;
+
 public class Jogador{
 
     public static void main(String[] args){
@@ -20,22 +23,29 @@ public class Jogador{
     
     protected long gold;
     protected String nome;
-    protected double money;
-    protected long vida;
-    protected long vidaMax;
-    protected long pocoes;
-    protected long pocoesMax;
-    protected long mana;
-    protected long manaMax;
-    protected long xp;
-    protected long xpPraUpar;
-    protected int forca;
-    protected int constituicao;
-    protected int inteligencia;
-    protected int nivel;
+    protected long money;
+    protected long vida,vidaMax,pocoes,pocoesMax,mana,manaMax,xp,xpPraUpar;
+    protected int forca, constituicao, inteligencia, nivel;
     protected boolean vivo;
 
+    protected ArrayList<Item> mochila;
+    protected Armadura armadura;
+    protected Arma arma;
+    protected Escudo escudo;
+
+    public long getMoney(){
+        return money;    
+    }
+
+    public void gastarDinheiro(long preco){
+        if(preco<0)
+            preco *=-1;
+
+        this.money -= preco;
+    }
+
     public Jogador(String nome, int nivel){
+        this.mochila = new ArrayList<Item>();
         this.gold = 0;
         this.vivo = true;
         this.nome = nome;
@@ -100,6 +110,7 @@ public class Jogador{
 
         System.out.print("\n\n\nAgora digite o nivel do seu personagem:\n\n>>> ");
         this.nivel = scan.nextInt();
+        this.mochila = new ArrayList<Item>();
         this.gold = 0;
         this.vivo = true;
         this.vidaMax = 10;
@@ -379,6 +390,78 @@ public class Jogador{
 
     public boolean checarVivo(){
         return this.vivo;
+    }
+
+    
+    public boolean guardarItem(Item item){
+        if(item!=null){
+            mochila.add(item);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean equiparEscudo(Escudo escudo) {
+        if(escudo!=null && this.escudo == null){
+            this.escudo=escudo;
+            return true;
+        }
+        return false;
+    }
+    
+	public boolean equiparArmadura(Armadura armadura) {
+        if(armadura!=null && this.armadura == null){
+            this.armadura=armadura;
+            return true;
+        }
+        return false;
+	}
+
+	public boolean equiparArma(Arma arma) {
+        if(arma!=null && this.arma == null){
+            this.arma=arma;
+            return true;
+        }
+        return false;
+    }
+    
+    public Escudo desequiparEscudo() {
+        Escudo aux = this.escudo;
+        this.escudo = null;
+        return aux;
+    }
+
+	public Armadura desequiparArmadura(){
+        Armadura aux = this.armadura;
+        this.armadura = null;
+        return aux;
+	}
+
+	public Arma desequiparArma(){
+        Arma aux = this.arma;
+        this.arma = null;
+        return aux;
+    }
+
+    public void verInventario(){
+        if(this.mochila.size()>0){
+            System.out.println("Itens na mochila:\n");
+            int count=1;
+            for (Item item : mochila) {
+                System.out.println("Item "+count+":"+item);
+                count++;
+            }
+            System.out.println();
+        }
+    }
+
+    public void verEquipados(){
+        System.out.println("\n\n\nItens equipados:\n\n    Armadura equipada: "+ ( (armadura!=null) ? armadura.toString()+"\n" : "Sem armadura equipada\n" ) );
+
+        System.out.println("    Arma equipada: "+ ( (arma!=null) ? arma.toString()+"\n" : "Sem arma equipada\n" ) );
+
+        System.out.println("    Escudo equipado: "+ ( (escudo!=null) ? escudo.toString()+"\n" : "Sem escudo equipado\n" ) );
+        
     }
 }
 

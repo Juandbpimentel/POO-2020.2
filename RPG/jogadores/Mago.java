@@ -1,4 +1,4 @@
-package jogadores;
+package Jogadores;
 
 import java.util.Random;
 

@@ -1,41 +1,4 @@
-<<<<<<< HEAD
-import java.util.Scanner;
-public class Ninja{
-    public static void main(String[] args) {
-        Calango dead = new Calango(100);
-        Calango pool = new Calango(100);
-        System.out.println(dead);
-        System.out.println(pool);
 
-        dead.brigar(pool);
-        dead.brigar(pool);
-        dead.brigar(pool);
-        dead.brigar(pool);
-        dead.brigar(pool);
-
-        System.out.println(dead);
-        System.out.println(pool);
-        pool.brigar(dead);
-||||||| 3f8a7b4
-import java.util.Scanner;
-    public class Ninja {
-        public static void main(String[] args) {
-            Calango dead = new Calango(100);
-            Calango pool = new Calango(100);
-            System.out.println(dead);
-            System.out.println(pool);
-    
-            dead.brigar(pool);
-            dead.brigar(pool);
-            dead.brigar(pool);
-            dead.brigar(pool);
-            dead.brigar(pool);
-    
-            System.out.println(dead);
-            System.out.println(pool);
-            pool.brigar(dead);
-        }
-=======
 //import java.util.Scanner;
     public class Ninja {
         public static void main(String[] args) {
@@ -54,9 +17,7 @@ import java.util.Scanner;
             System.out.println(pool);
             pool.brigar(dead);
         }
->>>>>>> 47f899d345c66b5e2ad36f3811574cf733344df0
     }
-}
 
 
 class Mosquito {
