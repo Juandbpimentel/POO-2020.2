@@ -9,5 +9,5 @@
 ### Códigos
 
 - 💻 [Main](Principal.java)
-- 🐲 [Mobs](Mobs/Mob.java)
-- 🧙🏻‍♂️ [Jogador](Jogadores/Jogador.java)
+- 🐲 [Mobs](Mobs\Mob.java)
+- 🧙🏻‍♂️ [Jogador](Jogadores\Jogador.java)
