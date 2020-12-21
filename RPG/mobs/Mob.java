@@ -1,12 +1,11 @@
 package mobs;
 
 import java.util.Random;
-import java.util.Scanner;
 
 import jogadores.Jogador;
 public class Mob{
     public static String corCritico = "\u001B["+ "31" + "m";
-    public static String limparTexto = "\u001B["+"m";
+    public static String limparCorTexto = "\u001B["+"m";
 
     String nome;
     protected long vida;
@@ -20,8 +19,6 @@ public class Mob{
     protected int inteligencia;
     protected int nivel;
     protected boolean vivo;
-    
-    public static Scanner scan = new Scanner(System.in);
 
     //Construtores
     public Mob(String nome, int nivel,int forca ,int constituicao ,int inteligencia){
@@ -231,41 +228,42 @@ public class Mob{
         if(!vivo){
             return 0;
         }
+
         Random random = new Random();
         long atacar = 0;
-        int rand = random.nextInt(100), rand2 = 0;
+        int rand = random.nextInt(100);
+        
         if((rand+1)>1+(0.1*nivel)+(0.1*forca)){
-            rand2 = (random.nextInt(this.nivel));
-            atacar = (this.forca * ((rand2+1)+this.forca));
+            rand = (random.nextInt(this.nivel));
+            atacar = (this.forca * ((rand+1)+this.forca));
+            return atacar;
         }else{
-            rand2 = (random.nextInt(this.nivel));
-            atacar = 2*(this.forca * ((rand2+1)+this.forca));   
+            rand = (random.nextInt(this.nivel));
+            atacar = 2*(this.forca * ((rand+1)+this.forca));   
             System.out.print(corCritico+"!!!Você acertou um Ataque Crítico!!!");
-            System.out.println(limparTexto);    
+            System.out.println(limparCorTexto);
+            return atacar;    
         }
-        return atacar;
     }
 
-    long defender(){
+    public long defender(){
         if(!vivo){
             return 0;
         }
         Random random = new Random();
         long defender = 0;
-        long rand = random.nextInt(100), rand2 = 0;
-        if((rand+1)>1){
-            rand2 = (random.nextInt(this.nivel));
+        long rand = random.nextInt(100);
+        if((rand+1)>1+(0.1*nivel)){
+            rand = (random.nextInt(this.nivel));
 
-            defender = (this.constituicao *(rand2+1)*this.constituicao);
-            System.out.println(">>> Defesa: "+defender);
+            defender = (this.constituicao *(rand+1)*this.constituicao);
 
         }else{
-            rand2 = (random.nextInt(this.nivel));
+            rand = (random.nextInt(this.nivel));
 
-            defender = (long) 4*(this.constituicao*(rand2+1)*this.constituicao);   
-            System.out.print(corCritico+">>> Defesa Perfeita do inimigo: "+defender);
-            System.out.println(limparTexto); 
-
+            defender = (long) 4*(this.constituicao*(rand+1)*this.constituicao);   
+            System.out.print(corCritico+"!!! Sua defesa é perfeita e inabalável !!!"); 
+            System.out.println(limparCorTexto);
         }
         return defender;
     }

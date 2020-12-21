@@ -102,7 +102,7 @@ class Porco{
     }
 
     public String toString(){
-        return "Itens: " + this.itens + " | Valor: " + this.valor + " | " + this.volume + "/" + this.volumeMax + " | Quebrado: "+ estaQuebrado;
+        return "Itens: " + this.itens + " | Valor: " + this.valor + " | " + this.volume + "/" + this.volumeMax + " | Estado: "+ estaQuebrado;
     }
 
     void mostrarPorco(){

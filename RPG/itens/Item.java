@@ -23,13 +23,47 @@ public class Item {
         quebrado = false;
     }
 
-    public Item(long nivel, String nome){
+    public Item(long nivel){
 
         Random randomizador = new Random();
+        if(nivel<0)
+        nivel=1;
+        
         this.nivel = nivel;
-        this.nome = nome;
-
+        
         preco = 20 * (long) Math.pow(2,randomizador.nextInt((int) nivel)+1);
+
+        if (nivel <= 5){
+            if(randomizador.nextInt(100)+1>5){
+                this.nome = "Osso";
+            }else{
+                this.preco+=5000;
+                this.nome = "Frasco de água da fonte de juventude";
+            }
+        }else if (nivel <=50 && nivel > 5) {
+            if(randomizador.nextInt(100)+1>5){
+                this.nome = "Livro de Magias";
+            }else{
+                this.preco+=20000;
+                this.nome = "Espelho de nobre";
+            }
+        }else if (nivel <=100 && nivel > 50){
+            if(randomizador.nextInt(100)+1>5){
+                this.nome = "Pergaminho com runas estranhas";
+            }else{
+                this.nome = "Colar de chifre de unicórnio";
+                this.preco+=50000;
+            }
+        }else if (nivel > 100) {
+            if(randomizador.nextInt(10000)+1>1){
+                this.nome = "Estátua de ouro";
+                this.preco+= (long) 9999999;
+            }else{
+                this.nome = "Chave pra outro universo";
+                this.preco = 0;
+            }
+        }
+
 
         durabilidadeMax = (10+nivel) * (long) (randomizador.nextInt((int) nivel*10)+1);
 
@@ -41,25 +75,25 @@ public class Item {
     }
 
     public boolean serComprado(Jogador jogador){
-        if(jogador.getMoney() >= this.preco){
+        if(jogador.getDinheiro() >= this.preco){
             if(jogador.guardarItem(this)){
                 jogador.gastarDinheiro(preco);
-                return true;
-            }
-            return false;    
+                return true;    
+            }else
+                return false;    
         }
         return false;
     }
 
-    //public boolean dropar(Jogador jogador){
-    //    if(jogador.guardarItem(this)){
-    //        return true;
-    //    }
-    //    return false;
-    //}
+    public boolean dropar(Jogador jogador){
+        if(jogador.guardarItem(this)){
+            return true;
+        }
+        return false;
+    }
 
     public boolean concertar(Jogador jogador){
-        if (jogador.getMoney() >= this.preco) {
+        if (jogador.getDinheiro() >= this.preco) {
             jogador.gastarDinheiro(preco);
             this.durabilidade = this.durabilidadeMax;
             return true;
@@ -81,19 +115,38 @@ public class Item {
 
     public String toString() {
         String nome = " | Nome: " + this.nome, nivel = " | Nivel: " + this.nivel, preco = " | Preço: " + this.preco,
-                durabilidade = " | Durabilidade: " + this.durabilidade + "/" + durabilidadeMax + " |",
-                quebrado = " | Quebrado: " + this.quebrado + " |";
+                durabilidade = " | Durabilidade: " + this.durabilidade + "/" + durabilidadeMax,
+                quebrado = " | Estado: " + ((this.quebrado)?"Quebrado":"Utilizável");
 
         String saida = nome + nivel + preco + durabilidade + quebrado;
-        long n = saida.length();
-        saida = "\n" + saida + "\n";
-        for (long i = 0; i < n; i++) {
-            saida = "-" + saida + "-";
-        }
-        return "\n\n\n" + saida + "\n\n\n";
+
+        return saida ;
     }
 
     public String getTipoDeItem() {
         return tipoDeItem;
     }
+
+    public boolean eEscudo(){
+        if(this.getTipoDeItem().equals("Escudo"))
+            return true;
+        return false;
+    }
+
+    public boolean eArmadura(){
+        if(this.getTipoDeItem().equals("Armadura"))
+            return true;
+        return false;
+    }
+
+    public boolean eArma(){
+        if(this.getTipoDeItem().equals("Arma"))
+            return true;
+        return false;
+    }
+
+    public long getPreco() {
+        return preco;
+    }
+    
 }

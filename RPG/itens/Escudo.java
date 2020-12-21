@@ -8,8 +8,9 @@ import java.lang.Math;
 
 public class Escudo extends Item{
     private long bonusDefesa;
+    
     public Escudo(){
-        this.tipoDeItem = "Escudo ";
+        this.tipoDeItem = "Escudo";
         this.bonusDefesa = 5;
         nivel = 1;
         nome = "Escudo de treino";
@@ -19,30 +20,76 @@ public class Escudo extends Item{
         quebrado = false;
     }
 
-    public Escudo(long nivel, String nome){
-        super(nivel,nome);
+    public Escudo(long nivel){
+        super(nivel);
         Random randomizador = new Random();
+
+        if (nivel <= 10){
+            if(randomizador.nextInt(100)+1>5){
+                this.nome = "Pedaço de porta";
+            }else{
+                this.preco+=5000;
+                this.nome = "Escudo de treino velho";
+            }
+        }else if (nivel <=50 && nivel > 10) {
+            if(randomizador.nextInt(100)+1>5){
+                this.nome = "Escudo de treino";
+            }else{
+                this.preco+=20000;
+                this.nome = "Escudo de Soldado Raso";
+            }
+        }else if (nivel <=100 && nivel > 50){
+            if(randomizador.nextInt(100)+1>5){
+                this.nome = "Escudo de Ferro";
+            }else{
+                this.nome = "Escudo de Aço";
+                this.preco+=50000;
+            }
+        }else if (nivel > 100) {
+            if(randomizador.nextInt(10000)+1>1){
+                this.nome = "Escudo de Ouro";
+                this.preco+= (long) 9999999;
+            }else{
+                this.nome = "Escudo de aço valiriano do herói";
+                this.preco = 0;
+            }
+        }
+        
         this.bonusDefesa = (5)*nivel + (long) Math.pow(2,randomizador.nextInt((int) nivel)) ;
-        this.tipoDeItem = "Escudo ";   
+        this.tipoDeItem = "Escudo";   
     }
     
-    @Override
-    public boolean serComprado(Jogador jogador){
-        if(jogador.getMoney() >= this.preco){
-            if(jogador.equiparEscudo(this)){
+    public boolean serComprado(Jogador jogador, boolean equipar){
+        if(jogador.getDinheiro() >= this.preco){
+            if(equipar){
+                if(jogador.equiparEscudo(this)){
+                    jogador.gastarDinheiro(preco);
+                    return true;
+                }else if(jogador.guardarItem(this)){
+                    jogador.gastarDinheiro(preco);
+                    return true;    
+                }else
+                    return false;
+            }else if(jogador.guardarItem(this)){
                 jogador.gastarDinheiro(preco);
-                return true;
-            }
-            return false;    
+                return true;    
+            }else
+                return false;    
         }
         return false;
     }
 
-    public boolean dropar(Jogador jogador){
-        if(jogador.equiparEscudo(this)){
-            return true;
-        }
-        return false;
+    public boolean dropar(Jogador jogador, boolean equipar){
+        if(equipar){
+            if(jogador.equiparEscudo(this)){
+                return true;
+            }
+            return false;
+
+        }else if(jogador.guardarItem(this)){
+            return true;    
+        }else
+            return false;   
     }
 
     public long getBonusDefesa(){
@@ -50,14 +97,13 @@ public class Escudo extends Item{
         return (long) (bonusDefesa + randomizador.nextInt( (int) bonusDefesa/ (int) nivel) );
     }
     
-    @Override
     public String toString() {
-        String nome    = "| Nome: "+ this.nome, 
+        String nome   = " | Nome: "+ this.nome, 
         nivel         = " | Nivel: "+ this.nivel,
         bonusDefesa   = " | Proteção: "+ this.bonusDefesa,
         preco         = " | Preço: "+ this.preco,
         durabilidade  = " | Durabilidade: "+this.durabilidade +"/"+durabilidadeMax,
-        quebrado      = " | Estado: "+ ((this.quebrado)?"Quebrado":"Utilizável")+" |" ;
+        quebrado      = " | Estado: "+ ((this.quebrado)?"Quebrado":"Utilizável") ;
 
         String saida = nome + nivel + bonusDefesa+ preco + durabilidade + quebrado;
         
