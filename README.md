@@ -16,6 +16,8 @@
 
 ## S03
 
+- ### E01 - [Item do Jogador | Agregação](Projeto_03/E01)
+
 - ### E02 - [Cofre](Projeto_03/E02)
 
 ## S04

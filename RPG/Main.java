@@ -31,18 +31,4 @@ public class Main {
 
         in.close();
     }
-
-    public void lutarMenu(Jogador jogador, Mob inimigo) {
-        while (true) {
-            if (!jogador.checarVivo()) {
-                System.out.println("Você foi derrotado por " + inimigo.getNome());
-                break;
-            }
-
-            if (!inimigo.checarVivo()) {
-                System.out.println("Você derrotou " + inimigo.getNome());
-                break;
-            }
-        }
-    }
 }
