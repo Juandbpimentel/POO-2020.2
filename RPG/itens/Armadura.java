@@ -67,32 +67,19 @@ public class Armadura extends Item {
                 if(jogador.equiparArmadura(this)){
                     jogador.gastarDinheiro(preco);
                     return true;
-                }else if(jogador.guardarItem(this)){
+                }else if(jogador.guardarNaMochila(this)){
                     jogador.gastarDinheiro(preco);
                     return true;    
                 }else
                     return false;
 
-            }else if(jogador.guardarItem(this)){
+            }else if(jogador.guardarNaMochila(this)){
                 jogador.gastarDinheiro(preco);
                 return true;    
             }else
                 return false;    
         }
         return false;
-    }
-
-    public boolean dropar(Jogador jogador, boolean equipar){
-        if(equipar){
-            if(jogador.equiparArmadura(this)){
-                return true;
-            }
-            return false;
-
-        }else if(jogador.guardarItem(this)){
-            return true;    
-        }else
-            return false;   
     }
 
     public long getBonusDefesa() {

@@ -1,4 +1,4 @@
-# S02 - Projeto Extra
+# Projeto Extra
 
 <div align="center">
 <img src="OMagoEImplacavel.jpg" >

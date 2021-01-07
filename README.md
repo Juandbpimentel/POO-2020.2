@@ -16,6 +16,8 @@
 
 ## S03
 
+- ### E02 - [Cofre](Projeto_03/E02)
+
 ## S04
 
 - ### E01 - [Tamagotchi](Projeto_04/E01_Tamagotchi)

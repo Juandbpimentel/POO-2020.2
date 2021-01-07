@@ -1,6 +1,6 @@
 run :
-	javac Principal.java
-	java Principal
+	javac Main.java
+	java Main
 
 clear :
-	rm Principal.class Itens/*.class Mobs/*.class Jogadores/*.class
+	rm Main.class itens/*.class mobs/*.class jogadores/*.class menus/*.class

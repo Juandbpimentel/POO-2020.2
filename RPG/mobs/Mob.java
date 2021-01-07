@@ -1,7 +1,9 @@
 package mobs;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import itens.*;
 import jogadores.Jogador;
 public class Mob{
     public static String corCritico = "\u001B["+ "31" + "m";
@@ -19,6 +21,27 @@ public class Mob{
     protected int inteligencia;
     protected int nivel;
     protected boolean vivo;
+    Arma arma;
+    Armadura armadura;
+    Escudo escudo;
+
+    public ArrayList<Item> droparItens(){
+        ArrayList<Item> drops = new ArrayList<Item>();  
+        if(arma!=null)
+            drops.add(arma);
+        if(escudo!=null)
+            drops.add(escudo);
+        if(armadura!=null)
+            drops.add(armadura);
+        return drops;
+    }
+
+    protected void gerarItens(){
+        Random rand = new Random();
+        escudo = (rand.nextInt(100)+1> 1 + (0.2*this.nivel) )? new Escudo(this.nivel): null;
+        arma = (rand.nextInt(100)+1> 1 + (0.2*this.nivel) )? new Arma(this.nivel): null;
+        armadura = (rand.nextInt(100)+1> 1 + (0.2*this.nivel) )? new Armadura(this.nivel): null;
+    }
 
     //Construtores
     public Mob(String nome, int nivel,int forca ,int constituicao ,int inteligencia){
@@ -30,6 +53,8 @@ public class Mob{
         this.constituicao = constituicao;
         this.inteligencia = inteligencia;
         this.forca = forca;
+        this.gerarItens();
+        this.dinheiro = ( 5 * (long) Math.pow(2,this.nivel));
 
         this.pocoes = nivel/4;
         if (pocoes<=0) {
@@ -51,7 +76,8 @@ public class Mob{
         this.nivel = nivel;
         this.vidaMax=0;
         this.manaMax=0;
-        
+        this.gerarItens();
+        this.dinheiro = ( 5 * (long) Math.pow(2,this.nivel));
         this.pocoes = nivel/4;
         if (pocoes<=0) {
             pocoes =1;
@@ -95,41 +121,29 @@ public class Mob{
         this.nivel = 1;
         this.vidaMax=0;
         this.manaMax=0;
-        this.pocoes = nivel/4;
-        if (pocoes<=0) {
-            pocoes =1;
-        }
-        if(nivel>1){
-            int div = (nivel-1) /2;
-            int div2 = (nivel-1)-div;
-            this.constituicao = 1 + div;
-            this.inteligencia = 1;
-            this.forca = 1 + div2;    
-        }else{
-            this.constituicao = 1;
-            this.inteligencia = 1;
-            this.forca = 1;
-        }
-        for(int i = 0; i < nivel; i++){
-            this.vidaMax += ( (this.constituicao + 5) * nivel);
-            this.manaMax += ( (this.inteligencia + 2) * nivel);
-        }
-        
-        this.vida=vidaMax;
-        this.mana=manaMax;
-        
-        if(this.nivel >= 1 &&  this.nivel < 50) {
-            this.nome += " Desatrado";
-        }else if(this.nivel>=50 && this.nivel<250){
-            this.nome += " Experiente";
-        }else if(this.nivel>=250 && this.nivel<500){
-            this.nome += " Veterano";
-        }else if(this.nivel>=500 && this.nivel<1000){
-            this.nome += " Mestre";
-        }else if(this.nivel>=1000){
-            this.nome = "Rei dos Slimes";
-        }
+        this.pocoes = nivel;
+        this.constituicao = 1;
+        this.inteligencia = 1;
+        this.forca = 1;
+        this.gerarItens();
+        this.dinheiro = ( 5 * (long) Math.pow(2,this.nivel));
     }
+
+    public static Mob criarMob(int nivel){
+        if(nivel<=0)
+            nivel = 1;
+        if(nivel<10){
+            return new Slime(nivel);
+        }else if(nivel>=10 && nivel<50){
+            return (Mob) new Goblin(nivel);
+        }else if(nivel>=50 && nivel<100){
+            return (Mob) new Vampiro(nivel);
+        }else if(nivel>=100 && nivel<500){
+            return (Mob) new Demonio(nivel);
+        }else{
+            return (Mob) new Entidade(nivel);
+        }
+    } 
     
     public String getNome() {
         return nome;
@@ -153,16 +167,16 @@ public class Mob{
         return "\n\n"+saida;
     }
     
-    long droparXp(){
+    public long droparXp(){
         return (long)( 1.25 * Math.pow(2,this.nivel));
     }
 
-    long droparDinheiro(){
-        return ( 5 * (long) Math.pow(2,this.nivel));
+    public long droparDinheiro(){
+        return this.dinheiro;
     }
 
-    void receberAtaque(Jogador inimigo, boolean defender){
-        if(!vivo){
+    public void receberAtaque(Jogador inimigo, boolean defender){
+        if(this.checarVivo()){
             System.out.println("Seu inimigo já está morto, não seja um monstro como ele");
             return;
         }
@@ -216,7 +230,7 @@ public class Mob{
                 }
             }else if(vida <= 0){
                 System.out.println(this.nome+" diz - Aahhgrrrrrr! *O inimigo cai inerte no chão*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano e morreu");
-                this.vivo=false;
+                this.morrer();
             }
                 
         }else{
@@ -235,12 +249,12 @@ public class Mob{
         
         if((rand+1)>1+(0.1*nivel)+(0.1*forca)){
             rand = (random.nextInt(this.nivel));
-            atacar = (this.forca * ((rand+1)+this.forca));
+            atacar = (this.forca * ((rand+1)+this.forca) + ((arma!=null)? arma.getBonusAtaque():0));
             return atacar;
         }else{
             rand = (random.nextInt(this.nivel));
-            atacar = 2*(this.forca * ((rand+1)+this.forca));   
-            System.out.print(corCritico+"!!!Você acertou um Ataque Crítico!!!");
+            atacar = 2*(this.forca * ((rand+1)+this.forca)+ ((arma!=null)? arma.getBonusAtaque():0));   
+            System.out.print(corCritico+"!!! O seu inimigo acertou um ataque crítico !!!");
             System.out.println(limparCorTexto);
             return atacar;    
         }
@@ -256,20 +270,41 @@ public class Mob{
         if((rand+1)>1+(0.1*nivel)){
             rand = (random.nextInt(this.nivel));
 
-            defender = (this.constituicao *(rand+1)*this.constituicao);
+            defender = (this.constituicao *(rand+1)*this.constituicao+ ((armadura!=null)? armadura.getBonusDefesa():0) + ((escudo!=null)? escudo.getBonusDefesa():0));
 
         }else{
             rand = (random.nextInt(this.nivel));
 
-            defender = (long) 4*(this.constituicao*(rand+1)*this.constituicao);   
+            defender = (long) 4*(this.constituicao*(rand+1)*this.constituicao+ ((armadura!=null)? armadura.getBonusDefesa():0) + ((escudo!=null)? escudo.getBonusDefesa():0));   
             System.out.print(corCritico+"!!! Sua defesa é perfeita e inabalável !!!"); 
             System.out.println(limparCorTexto);
         }
         return defender;
     }
 
+    public boolean potar(){
+        if(!vivo){
+            return false;
+        }
+        if(pocoes>0){
+            if(vida<vidaMax && vida>vidaMax/4){
+                System.out.println("*Glup* -Seu inimigo toma uma poção-");
+                vida += ( 3*vidaMax/10 );
+                return true;
+            }else if(vida<=vidaMax/4){
+                System.out.println("*Glup* -Seu inimigo toma uma poção-");
+                vida += (5*vidaMax/10);
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
     public String show(){
-        String nome = "| Nome: "+ this.nome, 
+        String nome = "| Inimigo: "+ this.nome, 
         mana   = " | Mana: "+ this.mana+"/"+this.manaMax,
         vida   = " | Vida: "+ this.vida+"/"+this.vidaMax;
 
@@ -288,6 +323,13 @@ public class Mob{
 
     public boolean checarVivo(){
         return this.vivo;
+    }
+
+    public boolean checarVidaBaixa(){
+        if( ( (float)((int)vida) / (float)((int)vidaMax)*100)<=20)
+            return true;
+        else
+            return true;
     }
     
 }

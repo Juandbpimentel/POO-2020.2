@@ -10,6 +10,7 @@ import mobs.Mob;
 public class Jogador{
 
 //Vatiáveis de ambiente
+    private static Scanner scan = new Scanner(System.in);
     private String corDefesa = "\u001B["+ "33" + "m", corCritico = "\u001B["+ "33" + "m", corLevelUp = "\u001B["+ "33" + "m";
     private String corShow = "\u001B["+ "36" + "m", limparCorTexto = "\u001B["+"m";
 
@@ -31,7 +32,7 @@ public class Jogador{
     protected Escudo escudo;
 
     public Jogador(String nome, int nivel){
-        Scanner scanJogador = new Scanner(System.in);
+        
         this.mochila = new ArrayList<Item>();
         this.dinheiro = 0;
         this.vivo = true;
@@ -54,8 +55,8 @@ public class Jogador{
                 System.out.println("Pontos de Inteligência: "+ this.inteligencia);
                 System.out.println("Pontos de Constituição: "+this.constituicao);
                 System.out.print("Selecione a opção para adicionar 1 ponto de habilidade:\n   (1) - Força\n   (2) - Inteligência\n   (3) - Constituição\n\n>>> ");
-                int opt = scanJogador.nextInt();
-                clearBuffer(scanJogador);
+                int opt = scan.nextInt();
+                clearBuffer(scan);
                 switch (opt) {
                     case 1:
                         countNivel++;
@@ -88,17 +89,17 @@ public class Jogador{
 
         System.out.print(corShow+"\n\n\nSeu personagem foi criado, olhe os dados dele:"+this);
         System.out.println(limparCorTexto);
-        scanJogador.close();
+        
     }
 
     public Jogador(){
-        Scanner scanJogador = new Scanner(System.in);
+        
         System.out.println("-----Menu de criação de personagem-----");
         System.out.print("\n\n\nDigite o nome do seu personagem:\n\n>>> ");
-        this.nome = scanJogador.nextLine();
+        this.nome = scan.nextLine();
 
         System.out.print("\n\n\nAgora digite o nivel do seu personagem:\n\n>>> ");
-        this.nivel = scanJogador.nextInt();
+        this.nivel = scan.nextInt();
         this.mochila = new ArrayList<Item>();
         this.dinheiro = 0;
         this.vivo = true;
@@ -121,7 +122,7 @@ public class Jogador{
                 System.out.println("Pontos de Inteligência: "+ this.inteligencia);
                 System.out.println("Pontos de Constituição: "+this.constituicao);
                 System.out.print("Selecione a opção para adicionar 1 ponto de habilidade:\n   (1) - Força\n   (2) - Inteligência\n   (3) - Constituição\n\n>>> ");
-                int opt = scanJogador.nextInt();
+                int opt = scan.nextInt();
                 switch (opt) {
                     case 1:
                         countNivel++;
@@ -154,7 +155,7 @@ public class Jogador{
 
         System.out.print(corShow+"\n\n\nSeu personagem foi criado, olhe os dados dele:"+this);
         System.out.println(limparCorTexto);
-        scanJogador.close();
+        
     }
 
     public long atacar(){
@@ -168,11 +169,11 @@ public class Jogador{
         
         if((rand+1)>1+(0.1*nivel)+(0.1*forca)){
             rand = (random.nextInt(this.nivel));
-            atacar = (this.forca * ((rand+1)+this.forca));
+            atacar = (this.forca * ((rand+1)+this.forca)+ ((arma!=null)? arma.getBonusAtaque():0) );
             return atacar;
         }else{
             rand = (random.nextInt(this.nivel));
-            atacar = 2*(this.forca * ((rand+1)+this.forca));   
+            atacar = 2*(this.forca * ((rand+1)+this.forca)+ ((arma!=null)? arma.getBonusAtaque():0) );   
             System.out.print(corCritico+"!!!Você acertou um Ataque Crítico!!!");
             System.out.println(limparCorTexto);
             return atacar;    
@@ -189,20 +190,74 @@ public class Jogador{
         }
     }
     
-    public boolean comprarItem(Item item, boolean equipar){
+    public boolean comprarItem(Item item){
         if(item == null){
             return false;
         }
-
         if(item.eEscudo()){          
             Escudo escudo = (Escudo)item;
-            return escudo.serComprado(this,equipar);
+            if(this.escudo!= null){
+                System.out.println("\n\nEscudo Novo: "+item);
+                System.out.println("Escudo equipado: "+this.escudo+"\n\n");
+
+                System.out.print("Você quer trocar esse escudo pelo seu?(y/n): ");
+                String temp = scan.next();
+
+                if(temp.equals("y")||temp.equals("Y")){
+                    this.desequiparEscudo(); 
+                    return escudo.serComprado(this,true);
+                }else
+                    return escudo.serComprado(this,false);
+            }
+
+            System.out.println("\n\nEscudo novo: "+item);
+            System.out.print("\n\nVocê quer equipar essa Escudo?(y/n): ");
+            String temp = scan.next();
+            return escudo.serComprado(this,(temp.equals("y")||temp.equals("Y"))? true: false);
+
         }else if(item.eArmadura()){
             Armadura armadura = (Armadura)item;
-            return armadura.serComprado(this,equipar);
+            if(this.armadura!= null){
+                System.out.println("\n\nArmadura Nova: "+item);
+                System.out.println("Armadura equipada: "+this.armadura+"\n\n");
+
+                System.out.print("Você quer trocar essa armadura pela sua?(y/n): ");
+                String temp = scan.next();
+
+                if(temp.equals("y")||temp.equals("Y")){
+                    this.desequiparArmadura(); 
+                    return armadura.serComprado(this,true);
+                }else
+                    return armadura.serComprado(this,false);
+            }
+
+            System.out.println("\n\nArmadura nova: "+item);
+            System.out.print("\n\nVocê quer equipar essa armadura?(y/n): ");
+            String temp = scan.next();
+            return armadura.serComprado(this,(temp.equals("y")||temp.equals("Y"))? true: false);
+        
         }else if(item.eArma()){
             Arma arma = (Arma) item;
-            return arma.serComprado(this,equipar);
+
+            if(this.arma!= null){
+                System.out.println("\n\nArma Nova: "+item);
+                System.out.println("Arma equipada: "+this.arma+"\n\n");
+
+                System.out.print("Você quer trocar essa arma pela sua?(y/n): ");
+                String temp = scan.next();
+
+                if(temp.equals("y")||temp.equals("Y")){
+                    this.desequiparArma(); 
+                    return arma.serComprado(this,true);
+                }else
+                    return arma.serComprado(this,false);
+            }
+
+            System.out.println("\n\nArma nova: "+item);
+            System.out.print("\n\nVocê quer equipar essa arma?(y/n): ");
+            String temp = scan.next();
+            return arma.serComprado(this,(temp.equals("y")||temp.equals("Y"))? true: false);
+
         }else{
             return item.serComprado(this);
         }
@@ -299,48 +354,121 @@ public class Jogador{
         return nome;
     }
 
-    public boolean guardarItem(Item item){
-        if(item!=null){
-            mochila.add(item);
-            return true;
+    public boolean guardarNaMochila(Item item){
+        if(item != null)
+            return mochila.add(item);
+        else
+            return false;
+    }
+
+    public boolean pegarDrop(Item item){
+        if(item == null){
+            return false;
         }
-        return false;
+        if(item.eEscudo()){          
+            Escudo escudo = (Escudo)item;
+            if(this.escudo!= null){
+                System.out.println("\n\nEscudo novo: "+item);
+                System.out.println("Escudo equipado: "+this.escudo+"\n\n");
+
+                System.out.print("Você quer trocar esse escudo pelo seu?(y/n): ");
+                String temp = scan.next();
+                if(temp.equals("y")||temp.equals("Y")){
+                    this.desequiparEscudo(); 
+                    return this.equiparEscudo(escudo);
+                }else
+                    return guardarNaMochila(escudo);
+            }
+            System.out.println("\n\nEscudo novo: "+item);
+            System.out.print("\n\nVocê quer equipar esse escudo?(y/n): ");
+            String temp = scan.next();
+            boolean saida = (temp.equals("y")) ? this.equiparEscudo(escudo) : guardarNaMochila(escudo);
+            return saida;
+
+        }else if(item.eArmadura()){
+            Armadura armadura = (Armadura)item;
+            if(this.armadura!= null){
+                System.out.println("\n\nArmadura Nova: "+item);
+                System.out.println("Armadura equipada: "+this.armadura+"\n\n");
+                
+                System.out.print("Você quer trocar essa armadura pela sua?(y/n): ");
+                String temp = scan.next();
+                if(temp.equals("y")||temp.equals("Y")){
+                    this.desequiparArmadura(); 
+                    return this.equiparArmadura(armadura);
+                }else
+                return guardarNaMochila(armadura);
+            }
+            System.out.println("\n\nArmadura Nova: "+item);
+            System.out.print("\n\nVocê quer equipar essa armadura?(y/n): ");
+            String temp = scan.next();
+            boolean saida = (temp.equals("y")) ? this.equiparArmadura(armadura) : guardarNaMochila(armadura) ;
+            return saida;
+        
+        }else if(item.eArma()){
+            Arma arma = (Arma) item;
+            if(this.arma!= null){
+                System.out.println("\n\nArma Nova: "+item);
+                System.out.println("Arma equipada: "+this.arma+"\n\n");
+
+                System.out.print("Você quer trocar essa arma pela sua?(y/n): ");
+                String temp = scan.next();
+                if(temp.equals("y")||temp.equals("Y")){
+                    this.desequiparArma(); 
+                    return this.equiparArma(arma);
+                }else
+                    return guardarNaMochila(arma);
+            }
+            System.out.println("\n\nArma nova: "+item);
+            System.out.print("\n\nVocê quer equipar essa arma?(y/n): ");
+            String temp = scan.next();
+            boolean saida = (temp.equals("y")) ? this.equiparArma(arma) : guardarNaMochila(arma) ;
+            return saida;
+        }else{
+            return guardarNaMochila(item);
+        }
     }
 
     public void morrer(){
         this.vivo = false;
     }
 
-    public void potar(){
+    public boolean potar(){
         if(!vivo){
-            return;
+            return false;
         }
         if(pocoes>0){
             if(vida<vidaMax && vida>vidaMax/4){
-            System.out.println("*Glup*");
-            System.out.println("Você sente sua energia vital sendo preenchida");
-            vida += ( 3*vidaMax/10 );
+                System.out.println("*Glup*");
+                System.out.println("Você sente sua energia vital sendo preenchida");
+                vida += ( 3*vidaMax/10 );
+                return true;
             }else if(vida<=vidaMax/4){
                 System.out.println("*Glup*");
                 System.out.println("A luz que você estava vendo ao longe vai se afastando e você sente suas feridas profundas fechando");
                 vida += (5*vidaMax/10);
+                return true;
             }else{
                 System.out.println("Você já está com a vida cheia, guarde sua poção para depois");
+                return false;
             }
         }else{
             System.out.println("Você não tem mais poções para utilizar");
+            return false;
         }
     }
     
-    public void reabastecerPocoes(){
+    public boolean reabastecerPocoes(){
         if(!vivo)
-            return;
+            return false;
 
-        if(pocoes==pocoesMax)
+        if(pocoes==pocoesMax){
             System.out.println("Você já está com sua bolsa de poções cheia");
-        else
+            return false;
+        }else{
             System.out.println("Bolsa de poções reabastecida");  
-        
+            return true;
+        }
     }
 
     public void receberAtaque(Mob inimigo, boolean defender){
@@ -393,11 +521,11 @@ public class Jogador{
             this.xp+=xpGanho;
     }
 
-    public void receberXpPuro(long xpInimigo){
-        if(xpInimigo == 0){
+    protected void receberXpPuro(long xp){
+        if(xp == 0){
             return;
         }
-        long xpGanho = xpInimigo;
+        long xpGanho = xp;
 
         if(xpGanho+this.xp>=this.xpPraUpar){
             this.upar(xpGanho+this.xp-this.xpPraUpar);
@@ -406,7 +534,7 @@ public class Jogador{
     }
 
     public void show(){
-        String nome = "| Nome: "+ this.nome, 
+        String nome = "| Nome do Jogador: "+ this.nome, 
         mana   = " | Mana: "+ this.mana+"/"+this.manaMax,
         pocoes = " | Poções: "+ this.pocoes+"/"+this.pocoesMax,
         vida   = " | Vida: "+ this.vida+"/"+this.vidaMax+" |";
@@ -443,7 +571,7 @@ public class Jogador{
     }
 
     public void upar(long xpSobrando){
-        Scanner scanJogador = new Scanner(System.in);
+        
         System.out.println("\n\n\n");
         System.out.print(corLevelUp+"!!!!!!!!!!!!!!!!!!!!!!!!!!!! Você Subiu de Nível !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         System.out.println(limparCorTexto);
@@ -451,7 +579,7 @@ public class Jogador{
         System.out.println("\n\n\nVocê tem um ponto para aumentar um atributo");
         System.out.println("Pontos Atuais: Força: "+ this.forca+" | Inteligência: "+this.inteligencia+" | Constituição: "+this.constituicao);
         System.out.print("\n\nSelecione a opção do atributo à ser aumentado:\n(1) - Força\n(2) - Inteligência\n(3) - Constituição\n\n>");
-        String teste = scanJogador.next();
+        String teste = scan.next();
 
 
         switch (Integer.parseInt(teste)){
@@ -480,7 +608,7 @@ public class Jogador{
         this.mana= manaMax;
         this.pocoesMax = nivel;
         this.receberXpPuro(xpSobrando);
-        scanJogador.close();
+        
     }
 
     public void verEquipados(){
@@ -491,18 +619,249 @@ public class Jogador{
         System.out.println("    <<  Escudo equipado  >>: "+ ( (escudo!=null) ? escudo.toString()+"\n" : "Sem escudo equipado\n" ) );
         
     }
-    
+
+    public int getNivel() {
+        return nivel;
+    }
+
     public void verInventario(){
-        if(this.mochila.size()>0){
-            System.out.println("Itens na mochila:\n");
-            int count=1;
-            for (Item item : mochila) {
-                System.out.println("    -"+count+")"+item);
-                System.out.println();
-                count++;
+        System.out.println("\n\n<<<<< Inventário >>>>>");
+        for (int i = 0; i < 4; i++) {
+            if(i == 0)
+                showEscudos();
+            if(i == 1)
+                showArmaduras();
+            if(i == 2)
+                showArmas();
+            if(i == 3)
+                showItens();
             }
-            System.out.println();
+    }
+
+    public void vender(ArrayList<Item> inventario,int opt){
+        String opt2="";
+        int count=0;
+        Item temp = null;
+        boolean resultado = false;
+
+        switch (opt) {
+            case 1:
+                showVenda(opt);
+                System.out.println("Você tem "+this.getDinheiro()+" de gold");
+                System.out.print("\n\nAgora escolha o número do escudo que quer vender: ");
+                opt2 = scan.next();
+                for(Item item : mochila){
+                    if (item.getTipoDeItem().equals("Escudo")){
+                        count++;
+                        if(count == Integer.parseInt(opt2)){
+                            temp = mochila.remove(mochila.indexOf(item));
+                            break;
+                        }
+                    }
+                }
+                if (temp != null) {
+                    if(inventario.add(temp)){
+                        resultado = true;
+                        this.gastarDinheiro(temp.getPreco());
+                    }else{
+                        if(temp!= null) 
+                            mochila.add(temp);
+                    }    
+                }
+
+                if(resultado){
+                    System.out.println("A venda deu certo");
+                }else
+                    System.out.println("A venda deu errado");
+                break;
+            case 2:
+                showVenda(opt);
+                System.out.println("Você tem "+this.getDinheiro()+" de gold");
+                System.out.print("\n\nAgora escolha o número da armadura que quer vender: ");
+                opt2 = scan.next();
+                for(Item item : mochila){
+                    if (item.getTipoDeItem().equals("Armadura")){
+                        count++;
+                        if(count == Integer.parseInt(opt2)){
+                            temp = mochila.remove(mochila.indexOf(item));
+                            break;
+                        }
+                    }
+                }
+        
+                if (temp != null) {
+                    if(inventario.add(temp)){
+                        resultado = true;
+                        this.gastarDinheiro(temp.getPreco());
+                    }else{
+                        if(temp!= null) 
+                            mochila.add(temp);
+                    }    
+                }
+
+                if(resultado){
+                    System.out.println("A venda deu certo");
+                }else
+                    System.out.println("A venda deu errado");
+                break;
+            case 3:
+                showVenda(opt);
+                System.out.println("Você tem "+this.getDinheiro()+" de gold");
+                System.out.print("\n\nAgora escolha o número da arma que quer vender: ");
+                opt2 = scan.next();
+                for(Item item : mochila){
+                    if (item.getTipoDeItem().equals("Arma")){
+                        count++;
+                        if(count == Integer.parseInt(opt2)){
+                            temp = mochila.remove(mochila.indexOf(item));
+                            break;
+                        }
+                    }
+                }
+        
+                if (temp != null) {
+                    if(inventario.add(temp)){
+                        resultado = true;
+                        this.gastarDinheiro(temp.getPreco());
+                    }else{
+                        if(temp!= null) 
+                            mochila.add(temp);
+                    }    
+                }
+
+                if(resultado){
+                    System.out.println("A venda deu certo");
+                }else
+                    System.out.println("A venda deu errado");
+                break;
+            case 4:
+                showVenda(opt);
+                System.out.println("Você tem "+this.getDinheiro()+" de gold");
+                System.out.print("\n\nAgora escolha o número da arma que quer vender: ");
+                opt2 = scan.next();
+                for(Item item : mochila){
+                    if (item.getTipoDeItem().equals("Item Básico")){
+                        count++;
+                        if(count == Integer.parseInt(opt2)){
+                            temp = mochila.remove(mochila.indexOf(item));
+                            break;
+                        }
+                    }
+                }
+        
+                if (temp != null) {
+                    if(inventario.add(temp)){
+                        resultado = true;
+                        this.gastarDinheiro(temp.getPreco());
+                    }else{
+                        if(temp!= null) 
+                            mochila.add(temp);
+                    }    
+                }
+
+                if(resultado){
+                    System.out.println("A venda deu certo");
+                }else
+                    System.out.println("A venda deu errado");
+                break;
+            default:
+                System.out.println("Sessão de classe de item inválida");
+                break;
         }
+    }
+
+    private void showVenda(int categoria){
+        switch (categoria) {
+            case 0:
+                System.out.println("\n\n<<<<< Estoque da loja >>>>>");
+            
+                for (int i = 0; i < 4; i++) {
+                    if(i == 0)
+                        showEscudos();
+                    if(i == 1)
+                        showArmaduras();
+                    if(i == 2)
+                        showArmas();
+                    if(i == 3)
+                        showItens();
+                    }
+                    break;
+                    
+            case 1:
+                showEscudos();    
+                break;
+
+            case 2:
+                showArmaduras();
+                break;
+        
+            case 3:
+                showArmas();
+                break;
+        
+            case 4:
+                showItens();
+                break;
+        
+            default:
+                System.out.println("Categoria inválida");
+                break;
+        }
+    }
+
+    private void showEscudos(){
+        int count = 0;
+        System.out.println("\n  -Escudos:");        
+        for (Item item : this.mochila)
+        if(item.getTipoDeItem().equals("Escudo")){
+            count++;
+            System.out.println("\n    "+count+") "+item);
+        }
+        
+        if(count == 0)
+        System.out.println("\n  -O jogador não tem escudos no inventário");
+    }
+
+    private  void showArmaduras(){
+        int count = 0;
+        System.out.println("\n  -Armaduras:");
+        for (Item item : this.mochila)
+        if(item.getTipoDeItem().equals("Armadura")){
+            count++;
+            System.out.println("\n    "+count+") "+item);
+        }
+        
+        if(count == 0)
+        System.out.println("\n  -O jogador não tem armaduras no inventário");
+    }
+
+    private void showArmas(){
+        int count = 0;
+        System.out.println("\n  -Armas:");
+        
+        for (Item item : this.mochila)
+        if(item.getTipoDeItem().equals("Arma")){
+            count++;
+            System.out.println("\n    "+count+") "+item);
+        }
+        
+        if(count == 0)
+        System.out.println("\n  -O jogador não tem armas no inventário");
+    }
+
+    private void showItens(){
+        int count = 0;
+        System.out.println("\n  -Itens:");
+                        
+        for (Item item : this.mochila)
+            if(item.getTipoDeItem().equals("Item Básico")){
+                count++;
+                System.out.println("\n    "+count+") "+item);
+            }
+        
+        if(count == 0)
+            System.out.println("\n  -O jogador não tem itens no inventário");
+                    
     }
 
 }

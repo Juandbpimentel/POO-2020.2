@@ -76,18 +76,11 @@ public class Item {
 
     public boolean serComprado(Jogador jogador){
         if(jogador.getDinheiro() >= this.preco){
-            if(jogador.guardarItem(this)){
+            if(jogador.guardarNaMochila(this)){
                 jogador.gastarDinheiro(preco);
                 return true;    
             }else
                 return false;    
-        }
-        return false;
-    }
-
-    public boolean dropar(Jogador jogador){
-        if(jogador.guardarItem(this)){
-            return true;
         }
         return false;
     }

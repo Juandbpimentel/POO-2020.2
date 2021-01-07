@@ -1,13 +1,19 @@
 enum Moeda {
-    M10(0.10f, 1),
-    M25(0.25f, 2),
-    M50(0.50f, 3),
-    M100(1f, 4);
+
+    M10((float)0.10, 1),
+    M25((float)0.10, 1),
+    M50((float)0.10, 1),
+    M100((float)0.10, 1);
 
     float valor;
     int volume;
 
     Moeda(float valor, int volume) {
+        this.valor = valor;
+        this.volume = volume;
+    }
+
+    Moeda(float valor, int volume, int teste) {
         this.valor = valor;
         this.volume = volume;
     }

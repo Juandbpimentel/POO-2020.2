@@ -63,32 +63,19 @@ public class Arma extends Item{
                 if(jogador.equiparArma(this)){
                     jogador.gastarDinheiro(preco);
                     return true;
-                }else if(jogador.guardarItem(this)){
+                }else if(jogador.guardarNaMochila(this)){
                     jogador.gastarDinheiro(preco);
                     return true;    
                 }else
                     return false;
 
-            }else if(jogador.guardarItem(this)){
+            }else if(jogador.guardarNaMochila(this)){
                 jogador.gastarDinheiro(preco);
                 return true;    
             }else
                 return false;    
         }
         return false;
-    }
-
-    public boolean dropar(Jogador jogador, boolean equipar){
-        if(equipar){
-            if(jogador.equiparArma(this)){
-                return true;
-            }
-            return false;
-
-        }else if(jogador.guardarItem(this)){
-            return true;    
-        }else
-            return false;   
     }
     
     public void quebrar(long dano){

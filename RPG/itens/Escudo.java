@@ -65,31 +65,19 @@ public class Escudo extends Item{
                 if(jogador.equiparEscudo(this)){
                     jogador.gastarDinheiro(preco);
                     return true;
-                }else if(jogador.guardarItem(this)){
+                }else if(jogador.guardarNaMochila(this)){
                     jogador.gastarDinheiro(preco);
                     return true;    
                 }else
                     return false;
-            }else if(jogador.guardarItem(this)){
+
+            }else if(jogador.guardarNaMochila(this)){
                 jogador.gastarDinheiro(preco);
                 return true;    
             }else
                 return false;    
         }
         return false;
-    }
-
-    public boolean dropar(Jogador jogador, boolean equipar){
-        if(equipar){
-            if(jogador.equiparEscudo(this)){
-                return true;
-            }
-            return false;
-
-        }else if(jogador.guardarItem(this)){
-            return true;    
-        }else
-            return false;   
     }
 
     public long getBonusDefesa(){
