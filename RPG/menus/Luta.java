@@ -11,9 +11,9 @@ import java.util.Scanner;
 public class Luta{
     private static Scanner in = new Scanner(System.in);
 
-    public Luta(Mob mob,Jogador jogador){
+    public void gerarLuta(Mob mob, Jogador jogador){
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<     Menu de luta     >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        boolean sair = false;
+            boolean sair = false;
         while (sair){
             int jogadorAtaque,jogadorDefesa;
             while (true) {
@@ -51,6 +51,7 @@ public class Luta{
                 }
             }
         }
-
     }
+
+    
 }

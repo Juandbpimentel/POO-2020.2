@@ -813,26 +813,26 @@ public class Jogador{
         int count = 0;
         System.out.println("\n  -Escudos:");        
         for (Item item : this.mochila)
-        if(item.getTipoDeItem().equals("Escudo")){
-            count++;
-            System.out.println("\n    "+count+") "+item);
-        }
+            if(item.getTipoDeItem().equals("Escudo")){
+                count++;
+                System.out.println("\n    "+count+") "+item);
+            }
         
         if(count == 0)
-        System.out.println("\n  -O jogador não tem escudos no inventário");
+            System.out.println("\n  -O jogador não tem escudos no inventário");
     }
 
     private  void showArmaduras(){
         int count = 0;
         System.out.println("\n  -Armaduras:");
         for (Item item : this.mochila)
-        if(item.getTipoDeItem().equals("Armadura")){
-            count++;
-            System.out.println("\n    "+count+") "+item);
-        }
+            if(item.getTipoDeItem().equals("Armadura")){
+                count++;
+                System.out.println("\n    "+count+") "+item);
+            }
         
         if(count == 0)
-        System.out.println("\n  -O jogador não tem armaduras no inventário");
+            System.out.println("\n  -O jogador não tem armaduras no inventário");
     }
 
     private void showArmas(){
@@ -840,13 +840,13 @@ public class Jogador{
         System.out.println("\n  -Armas:");
         
         for (Item item : this.mochila)
-        if(item.getTipoDeItem().equals("Arma")){
-            count++;
-            System.out.println("\n    "+count+") "+item);
-        }
+            if(item.getTipoDeItem().equals("Arma")){
+                count++;
+                System.out.println("\n    "+count+") "+item);
+            }
         
         if(count == 0)
-        System.out.println("\n  -O jogador não tem armas no inventário");
+            System.out.println("\n  -O jogador não tem armas no inventário");
     }
 
     private void showItens(){

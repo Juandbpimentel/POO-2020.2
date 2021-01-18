@@ -110,7 +110,7 @@ public class Loja{
     }
 
     
-    private void showLoja(int categoria){
+    private boolean showLoja(int categoria){
         switch (categoria) {
             case 0:
                 System.out.println("\n\n<<<<< Estoque da loja >>>>>");
@@ -126,70 +126,82 @@ public class Loja{
                         showItens();
                     }
                     break;
-                    
             case 1:
-                showEscudos();    
-                break;
+                return showEscudos();    
+                /*
+                fatorial = 10;
+                
+                for(int i = fatorial-1; i>0; i--){
+                    fatorial /= i;
+                }
 
+                */
             case 2:
-                showArmaduras();
-                break;
+                return showArmaduras();
         
             case 3:
-                showArmas();
-                break;
+                return showArmas();
         
             case 4:
-                showItens();
-                break;
+                return showItens();
         
             default:
                 System.out.println("Categoria inválida");
-                break;
+                return false;
         }
+        return false;
     }
 
-    private void showEscudos(){
+    private boolean showEscudos(){
         int count = 0;
         System.out.println("\n  -Escudos:");        
         for (Item item : this.inventario)
-        if(item.getTipoDeItem().equals("Escudo")){
-            count++;
-            System.out.println("\n    "+count+") "+item);
-        }
+            if(item.getTipoDeItem().equals("Escudo")){
+                count++;
+                System.out.println("\n    "+count+") "+item);
+            }
         
-        if(count == 0)
-        System.out.println("\n  -As escudos do inventário acabaram");
+        if(count == 0){
+            System.out.println("\n  -As escudos do inventário acabaram");
+            return false;
+        }
+        return true; 
     }
 
-    private  void showArmaduras(){
+    private boolean showArmaduras(){
         int count = 0;
         System.out.println("\n  -Armaduras:");
-        for (Item item : this.inventario)
-        if(item.getTipoDeItem().equals("Armadura")){
-            count++;
-            System.out.println("\n    "+count+") "+item);
-        }
+        for(Item item : this.inventario)
+            if(item.getTipoDeItem().equals("Armadura")){
+                count++;
+                System.out.println("\n    "+count+") "+item);
+            }
         
-        if(count == 0)
-        System.out.println("\n  -As armadura do inventário acabaram");
+        if(count == 0){
+            System.out.println("\n  -As armadura do inventário acabaram");
+            return false;
+        }
+        return true; 
     }
 
-    private void showArmas(){
+    private boolean showArmas(){
         int count = 0;
         System.out.println("\n  -Armas:");
         
         for (Item item : this.inventario)
-        if(item.getTipoDeItem().equals("Arma")){
-            count++;
-            System.out.println("\n    "+count+") "+item);
-        }
+            if(item.getTipoDeItem().equals("Arma")){
+                count++;
+                System.out.println("\n    "+count+") "+item);
+            }
         
-        if(count == 0)
-        System.out.println("\n  -As armas do inventário acabaram");
+        if(count == 0){
+            System.out.println("\n  -As armas do inventário acabaram");
+            return false;
+        }
+        return true; 
     }
 
-    private void showItens(){
+    private boolean showItens(){
         int count = 0;
         System.out.println("\n  -Itens:");
                         
@@ -199,9 +211,11 @@ public class Loja{
                 System.out.println("\n    "+count+") "+item);
             }
         
-        if(count == 0)
+        if(count == 0){
             System.out.println("\n  -Os Itens do inventário acabaram");
-                    
+            return false;
+        }
+        return true;       
     }
 
     private void compra(Jogador jogador, int opt) {
@@ -211,7 +225,9 @@ public class Loja{
         boolean resultado = false;
         switch (opt) {
             case 1:
-                showLoja(opt);
+                if(!showLoja(opt)){
+                    return;
+                }
                 System.out.println("Você tem "+jogador.getDinheiro()+" de gold");
                 System.out.print("\n\nAgora escolha o número do escudo que quer comprar: ");
                 opt2 = in.next();
@@ -229,10 +245,12 @@ public class Loja{
                 if (resultado) {
                     System.out.println("A compra deu certo");
                 }else
-                System.out.println("A compra deu errado");
+                    System.out.println("A compra deu errado");
                 break;
             case 2:
-                showLoja(opt);
+                if(!showLoja(opt)){
+                    return;
+                }
                 System.out.println("Você tem "+jogador.getDinheiro()+" de gold");
                 System.out.print("\n\nAgora escolha o número da armadura que quer comprar: ");
                 opt2 = in.next();
@@ -251,10 +269,12 @@ public class Loja{
                 if (resultado) {
                     System.out.println("A compra deu certo");
                 }else
-                System.out.println("A compra deu errado");
+                    System.out.println("A compra deu errado");
                 break;
             case 3:
-                showLoja(opt);
+                if(!showLoja(opt)){
+                    return;
+                }
                 System.out.println("Você tem "+jogador.getDinheiro()+" de gold");
                 System.out.print("\n\nAgora escolha o número da arma que quer comprar: ");
                 opt2 = in.next();
@@ -273,10 +293,12 @@ public class Loja{
                 if (resultado) {
                     System.out.println("A compra deu certo");
                 }else
-                System.out.println("A compra deu errado");
+                    System.out.println("A compra deu errado");
                 break;
             case 4:
-                showLoja(4);
+                if(!showLoja(opt)){
+                    return;
+                }
                 System.out.println("Você tem "+jogador.getDinheiro()+" de gold");
                 System.out.print("\n\nAgora escolha o número do item que quer comprar: ");
                 opt2 = in.next();
@@ -295,8 +317,7 @@ public class Loja{
                 if (resultado) {
                     System.out.println("A compra deu certo");
                 }else
-                System.out.println("A compra deu errado");
-
+                    System.out.println("A compra deu errado");
                 break;
             
         

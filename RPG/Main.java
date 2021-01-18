@@ -19,7 +19,9 @@ public class Main {
             if (ui[0].equals("Loja")){
                 loja.menuCompra(jogador);
             }else if(ui[0].equals("Batalhar")){
-                new Luta( Mob.criarMob(Integer.parseInt(ui[1])),jogador);
+                Luta luta = new Luta();
+
+                luta.gerarLuta(Mob.criarMob(Integer.parseInt(ui[1])),jogador);
             
             }else if(ui[0].equals("Sair")){
                 break;
