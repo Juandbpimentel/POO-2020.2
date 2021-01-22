@@ -14,7 +14,7 @@ public class Demonio extends Mob {
         this.manaMax=0;
         this.pocoes = nivel/4;
         this.dinheiro = ( 5 * (long) Math.pow(2,this.nivel));
-        this.gerarItens();
+        this.gerarItens((long)nivel);
         
         if (pocoes<=0) {
             pocoes =1;
@@ -65,7 +65,7 @@ public class Demonio extends Mob {
         this.manaMax=0;
         this.pocoes = nivel/4;
         this.dinheiro = ( 5 * (long) Math.pow(2,this.nivel));
-        this.gerarItens();
+        this.gerarItens((long)nivel);
         if (pocoes<=0) {
             pocoes =1;
         }
@@ -104,7 +104,7 @@ public class Demonio extends Mob {
             this.nome += ", o Rei dos Demonios";
         
     }
-
+    @Override
     public long atacar(){
         if(!vivo){
             return 0;
@@ -126,7 +126,7 @@ public class Demonio extends Mob {
             return atacar;    
         }
     }
-
+    @Override
     public long defender(){
         if(!vivo){
             return 0;

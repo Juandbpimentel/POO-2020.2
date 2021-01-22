@@ -44,6 +44,8 @@ public class Jogador{
         this.inteligencia=1;
         this.forca=1;
         this.xpPraUpar = 10 * (int)Math.pow(2, nivel);
+        this.pocoesMax = this.nivel;
+        this.pocoes = this.nivel;
 
         long pontosDeHabilidade = nivel-1;
         long countNivel = 1;
@@ -188,6 +190,11 @@ public class Jogador{
         if (scanner.hasNextLine()) {
             scanner.nextLine();
         }
+    }
+
+    public void reviver(){
+        this.vida = vidaMax;
+        this.vivo=true;
     }
     
     public boolean comprarItem(Item item){
@@ -397,7 +404,7 @@ public class Jogador{
                     this.desequiparArmadura(); 
                     return this.equiparArmadura(armadura);
                 }else
-                return guardarNaMochila(armadura);
+                    return guardarNaMochila(armadura);
             }
             System.out.println("\n\nArmadura Nova: "+item);
             System.out.print("\n\nVocê quer equipar essa armadura?(y/n): ");
@@ -432,7 +439,7 @@ public class Jogador{
     public void morrer(){
         this.vivo = false;
     }
-
+    
     public boolean potar(){
         if(!vivo){
             return false;
@@ -442,11 +449,13 @@ public class Jogador{
                 System.out.println("*Glup*");
                 System.out.println("Você sente sua energia vital sendo preenchida");
                 vida += ( 3*vidaMax/10 );
+                this.pocoes--;
                 return true;
             }else if(vida<=vidaMax/4){
                 System.out.println("*Glup*");
                 System.out.println("A luz que você estava vendo ao longe vai se afastando e você sente suas feridas profundas fechando");
                 vida += (5*vidaMax/10);
+                this.pocoes--;
                 return true;
             }else{
                 System.out.println("Você já está com a vida cheia, guarde sua poção para depois");
@@ -473,7 +482,7 @@ public class Jogador{
 
     public void receberAtaque(Mob inimigo, boolean defender){
         if(!vivo){
-            System.out.println("Seu inimigo chutou seu corpo morto no chão");
+            System.out.println("\n"+"Seu inimigo chutou seu corpo morto no chão"+"\n");
             return;
         }
         long defesa = 0;
@@ -483,22 +492,25 @@ public class Jogador{
             defesa = this.defender();
         }
         
-        long calculoDano = defesa-dano; 
+        long calculoDano = defesa-dano;
+        if(calculoDano>0)
+            calculoDano=0;
+
         this.vida += calculoDano;
 
         if(defesa-dano<=0){
             if(vida>= vidaMax/2){
-                System.out.println("Cuidado! você levou "+(-1*calculoDano)+" de dano de seu inimigo");
-            }else if(vida< vidaMax/2 && vida > vidaMax/4){
-                System.out.println("Preste atenção! você já está com a metade da vida, é melhor você se defender ou se curar com uma poção, seu adversário te causou "+(-1*calculoDano)+" de dano");
+                System.out.println("\n"+"Cuidado! você levou "+(-1*calculoDano)+" de dano de seu inimigo"+"\n");
+            }else if(vida < vidaMax/2 && vida > vidaMax/4){
+                System.out.println("\n"+"Preste atenção! você já está com a metade da vida, é melhor você se defender ou se curar com uma poção, seu adversário te causou "+(-1*calculoDano)+" de dano"+"\n");
             }else if(vida < vidaMax/4 && vida > 0){
-                System.out.println("Pelo amor das Deusas, você precisa se curar urgentemente, sua vida já está abaixo dos 25%, seu adversário te causou "+(-1*calculoDano)+" de dano");
+                System.out.println("\n"+"Pelo amor das Deusas, você precisa se curar urgentemente, sua vida já está abaixo dos 25%, seu adversário te causou "+(-1*calculoDano)+" de dano"+"\n");
             }else if(vida <= 0){
-                System.out.println("Infelizmente você não continuou sua caminhada após essa jornada, você caiu mas sua morte não será em vão, ouros verão seu exemplo e irão lutar por um mundo melhor sem esses monstros\n"+"Seu inimigo te causou "+(-1*calculoDano)+" de dano e com isso causou também sua morte");
+                System.out.println("\n"+"Infelizmente você não continuou sua caminhada após essa jornada, você caiu, mas sua morte não será em vão, outros verão seu exemplo e irão lutar por um mundo melhor sem esses monstros\n"+"Seu inimigo te causou "+(-1*calculoDano)+" de dano e com isso causou também sua morte"+"\n");
                 this.vivo=false;
             }
         }else{
-            System.out.println("Graças a sua robustez estrema, você conseguiu absorver o golpe de seu inimigo com sucesso");
+            System.out.println("\n"+"Graças a sua robustez estrema, você conseguiu absorver o golpe de seu inimigo com sucesso"+"\n");
         }
     }
 
@@ -512,7 +524,7 @@ public class Jogador{
             return;
         }
         long xpGanho = (int) ( xpInimigo / (this.nivel*2) );
-        if(xpGanho == 0)
+        if(xpGanho <= 0)
             xpGanho = 1;
         System.out.println("Xp ganho : "+xpGanho);
         if(xpGanho+this.xp>this.xpPraUpar){
@@ -659,7 +671,7 @@ public class Jogador{
                         }
                     }
                 }
-                if (temp != null) {
+                if (temp != null){
                     if(inventario.add(temp)){
                         resultado = true;
                         this.gastarDinheiro(temp.getPreco());

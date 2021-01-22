@@ -13,17 +13,19 @@ public class Main {
         Loja loja = new Loja(jogador);
         jogador.receberDinheiro(10000000);
         while (true) {
+            System.out.println(jogador);
+            jogador.reviver();
             System.out.print("Digite a opção: ");
             line = in.nextLine();
             String[] ui = line.split(" ");
-            if (ui[0].equals("Loja")){
+            if (ui[0].equals("loja")){
                 loja.menuCompra(jogador);
-            }else if(ui[0].equals("Batalhar")){
+            }else if(ui[0].equals("lutar")){
                 Luta luta = new Luta();
 
                 luta.gerarLuta(Mob.criarMob(Integer.parseInt(ui[1])),jogador);
             
-            }else if(ui[0].equals("Sair")){
+            }else if(ui[0].equals("sair")||ui[0].equals("-1")){
                 break;
             }
             

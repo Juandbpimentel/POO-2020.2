@@ -36,11 +36,11 @@ public class Mob{
         return drops;
     }
 
-    protected void gerarItens(){
+    protected void gerarItens(long nivel){
         Random rand = new Random();
-        escudo = (rand.nextInt(100)+1> 1 + (0.2*this.nivel) )? new Escudo(this.nivel): null;
-        arma = (rand.nextInt(100)+1> 1 + (0.2*this.nivel) )? new Arma(this.nivel): null;
-        armadura = (rand.nextInt(100)+1> 1 + (0.2*this.nivel) )? new Armadura(this.nivel): null;
+        escudo = (rand.nextInt(100)+1> 1 + (0.2*this.nivel) )? new Escudo(nivel): null;
+        arma = (rand.nextInt(100)+1> 1 + (0.2*this.nivel) )? new Arma(nivel): null;
+        armadura = (rand.nextInt(100)+1> 1 + (0.2*this.nivel) )? new Armadura(nivel): null;
     }
 
     //Construtores
@@ -53,7 +53,7 @@ public class Mob{
         this.constituicao = constituicao;
         this.inteligencia = inteligencia;
         this.forca = forca;
-        this.gerarItens();
+        this.gerarItens(this.nivel);
         this.dinheiro = ( 5 * (long) Math.pow(2,this.nivel));
 
         this.pocoes = nivel/4;
@@ -76,7 +76,7 @@ public class Mob{
         this.nivel = nivel;
         this.vidaMax=0;
         this.manaMax=0;
-        this.gerarItens();
+        this.gerarItens(this.nivel);
         this.dinheiro = ( 5 * (long) Math.pow(2,this.nivel));
         this.pocoes = nivel/4;
         if (pocoes<=0) {
@@ -125,7 +125,7 @@ public class Mob{
         this.constituicao = 1;
         this.inteligencia = 1;
         this.forca = 1;
-        this.gerarItens();
+        this.gerarItens(this.nivel);
         this.dinheiro = ( 5 * (long) Math.pow(2,this.nivel));
     }
 
@@ -133,7 +133,7 @@ public class Mob{
         if(nivel<=0)
             nivel = 1;
         if(nivel<10){
-            return new Slime(nivel);
+            return (Mob) new Slime(nivel);
         }else if(nivel>=10 && nivel<50){
             return (Mob) new Goblin(nivel);
         }else if(nivel>=50 && nivel<100){
@@ -147,6 +147,10 @@ public class Mob{
     
     public String getNome() {
         return nome;
+    }
+
+    public int getNivel() {
+        return nivel;
     }
     
     public String toString(){
@@ -176,8 +180,8 @@ public class Mob{
     }
 
     public void receberAtaque(Jogador inimigo, boolean defender){
-        if(this.checarVivo()){
-            System.out.println("Seu inimigo já está morto, não seja um monstro como ele");
+        if(!this.checarVivo()){
+            System.out.println("\n"+"Seu inimigo já está morto, não seja um monstro como ele"+"\n");
             return;
         }
         long defesa = 0;
@@ -188,20 +192,23 @@ public class Mob{
         }
 
         Random rand = new Random();
-        long calculoDano = defesa-dano; 
+        long calculoDano = defesa-dano;
+        if(calculoDano>0)
+            calculoDano=0;
+
         this.vida += calculoDano;
 
         if(defesa-dano<=0){
             if(vida>= vidaMax/2){
                 switch (rand.nextInt(3)) {
                     case 0:
-                        System.out.println(this.nome+" diz - Ai!!! Seu merdinha, você vai pagar!\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
+                        System.out.println("\n"+this.nome+" diz - Ai!!! Seu merdinha, você vai pagar!\n"+"Seu inimigo levou "+-1*calculoDano+" de dano"+"\n");   
                         break;
                     case 1:
-                        System.out.println(this.nome+" diz - Ouch! Seu maldito, quero ver você acertar de novo, tenho certeza que foi pura sorte!\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
+                        System.out.println("\n"+this.nome+" diz - Ouch! Seu maldito, quero ver você acertar de novo, tenho certeza que foi pura sorte!\n"+"Seu inimigo levou "+-1*calculoDano+" de dano"+"\n");   
                         break;
                     case 2:
-                        System.out.println(this.nome+" diz - Humpf! *Cospe um dente* É só isso que você tem? Não dá nem pro gasto!\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
+                        System.out.println("\n"+this.nome+" diz - Humpf! *Cospe um dente* É só isso que você tem? Não dá nem pro gasto!\n"+"Seu inimigo levou "+-1*calculoDano+" de dano"+"\n");   
                         break;
                     default:
                         break;
@@ -209,10 +216,10 @@ public class Mob{
             }else if(vida< vidaMax/2 && vida > vidaMax/4){
                 switch(rand.nextInt(2)){
                     case 0:
-                        System.out.println(this.nome+" diz - Grrrrrrr! *O inimigo grune de dor*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
+                        System.out.println("\n"+this.nome+" diz - Grrrrrrr! *O inimigo grune de dor*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano"+"\n");   
                         break;
                     case 1:
-                        System.out.println(this.nome+" diz - Ahrg hurrrm *Seu inimigo está bem machucado e sangrando*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
+                        System.out.println("\n"+this.nome+" diz - Ahrg hurrrm *Seu inimigo está bem machucado e sangrando*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano"+"\n");   
                         break;
                     default:
                         break;
@@ -220,21 +227,21 @@ public class Mob{
             }else if(vida < vidaMax/4 && vida > 0){
                 switch(rand.nextInt(2)){
                     case 0:
-                        System.out.println(this.nome+" diz - Agrhrrr que dor, eu não vou aguentar muito mais, mas não vou deixar que passe por mim\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
+                        System.out.println("\n"+this.nome+" diz - Agrhrrr que dor, eu não vou aguentar muito mais, mas não vou deixar que passe por mim\n"+"Seu inimigo levou "+-1*calculoDano+" de dano"+"\n");   
                         break;
                     case 1:
-                        System.out.println(this.nome+" diz - Ughrrr *Seu inimigo cospe sangue*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano");   
+                        System.out.println("\n"+this.nome+" diz - Ughrrr *Seu inimigo cospe sangue*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano"+"\n");   
                         break;
                     default:
                         break;
                 }
             }else if(vida <= 0){
-                System.out.println(this.nome+" diz - Aahhgrrrrrr! *O inimigo cai inerte no chão*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano e morreu");
+                System.out.println("\n"+this.nome+" diz - Aahhgrrrrrr! *O inimigo cai inerte no chão*\n"+"Seu inimigo levou "+-1*calculoDano+" de dano e morreu"+"\n");
                 this.morrer();
             }
                 
         }else{
-            System.out.println("Hahahaha, não foi dessa vez moleque! - diz " + this.nome);
+            System.out.println("\n"+"Hahahaha, não foi dessa vez moleque! - diz " + this.nome+"\n");
         }
     }
 
@@ -290,10 +297,12 @@ public class Mob{
             if(vida<vidaMax && vida>vidaMax/4){
                 System.out.println("*Glup* -Seu inimigo toma uma poção-");
                 vida += ( 3*vidaMax/10 );
+                this.pocoes--;
                 return true;
             }else if(vida<=vidaMax/4){
                 System.out.println("*Glup* -Seu inimigo toma uma poção-");
                 vida += (5*vidaMax/10);
+                this.pocoes--;
                 return true;
             }else{
                 return false;
@@ -303,18 +312,19 @@ public class Mob{
         }
     }
 
-    public String show(){
+    public void show(){
         String nome = "| Inimigo: "+ this.nome, 
         mana   = " | Mana: "+ this.mana+"/"+this.manaMax,
-        vida   = " | Vida: "+ this.vida+"/"+this.vidaMax;
-
-        String saida = nome + mana + vida;
+        vida   = " | Vida: "+ this.vida+"/"+this.vidaMax,
+        nivel  = " | Nivel:"+ this.nivel+" |";
+        String saida = nome + mana + vida + nivel;
         long n = saida.length();
         saida = "\n" + saida + "\n";
         for (long i = 0; i < n; i++) {
             saida = "-" + saida + "-";
         } 
-        return "\n\n"+saida;
+        System.out.print("\n\n"+saida+corCritico);
+        System.out.println(limparCorTexto);
     }
 
     public void morrer(){
@@ -329,7 +339,7 @@ public class Mob{
         if( ( (float)((int)vida) / (float)((int)vidaMax)*100)<=20)
             return true;
         else
-            return true;
+            return false;
     }
     
 }

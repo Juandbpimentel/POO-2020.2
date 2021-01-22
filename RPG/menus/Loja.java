@@ -3,10 +3,7 @@ package menus;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import itens.Arma;
-import itens.Armadura;
-import itens.Escudo;
-import itens.Item;
+import itens.*;
 import jogadores.Jogador;
 
 public class Loja{
@@ -241,7 +238,8 @@ public class Loja{
                     }
                 }
         
-                if((jogador.comprarItem(temp))? resultado = true : ((temp!= null)? this.inventario.add(temp): false));
+                resultado = ( (jogador.comprarItem(temp)) ? true : ((temp!= null)? this.inventario.add(temp): false) );
+               
                 if (resultado) {
                     System.out.println("A compra deu certo");
                 }else
@@ -265,7 +263,7 @@ public class Loja{
                     }
                 }
 
-                if((jogador.comprarItem(temp))? resultado = true: (temp!= null)? this.inventario.add(temp): false);
+                resultado = ( (jogador.comprarItem(temp))? true: ((temp!= null)? this.inventario.add(temp): false) );
                 if (resultado) {
                     System.out.println("A compra deu certo");
                 }else
@@ -289,7 +287,7 @@ public class Loja{
                     }
                 }
 
-                if((jogador.comprarItem(temp))? resultado = true: (temp!= null)? this.inventario.add(temp): false);
+                resultado = ( (jogador.comprarItem(temp))? true: ((temp!= null)? this.inventario.add(temp): false) );
                 if (resultado) {
                     System.out.println("A compra deu certo");
                 }else
@@ -313,7 +311,7 @@ public class Loja{
                     }
                 }
 
-                if((jogador.comprarItem(temp))? resultado = true: (temp!= null)? this.inventario.add(temp): false);
+                resultado = ( (jogador.comprarItem(temp))? true: ((temp!= null)? this.inventario.add(temp): false) );
                 if (resultado) {
                     System.out.println("A compra deu certo");
                 }else

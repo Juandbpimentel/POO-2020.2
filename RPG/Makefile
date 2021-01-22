@@ -1,6 +1,6 @@
-run:
+run: clear
 	javac Main.java
 	java Main
 
 clear:
-	del Main.class itens\*.class mobs\*.class jogadores\*.class menus\*.class
+	rm Main.class itens/*.class mobs/*.class jogadores/*.class menus/*.class

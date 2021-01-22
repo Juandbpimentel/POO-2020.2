@@ -13,7 +13,7 @@ public class Entidade extends Mob {
         this.vidaMax=0;
         this.manaMax=0;
         this.pocoes = nivel/4;
-        this.gerarItens();
+        this.gerarItens((long)nivel);
         this.dinheiro = ( 5 * (long) Math.pow(2,this.nivel));
         if (pocoes<=0) {
             pocoes =1;
@@ -63,7 +63,7 @@ public class Entidade extends Mob {
         this.vidaMax=0;
         this.manaMax=0;
         this.pocoes = nivel/4;
-        this.gerarItens();
+        this.gerarItens((long)nivel);
         this.dinheiro = ( 5 * (long) Math.pow(2,this.nivel));
         if (pocoes<=0) {
             pocoes =1;
@@ -103,7 +103,7 @@ public class Entidade extends Mob {
             this.nome +=",a Entidade Criadora";
         
     }
-
+    @Override
     public long atacar(){
         if(!vivo){
             return 0;
@@ -125,7 +125,7 @@ public class Entidade extends Mob {
             return atacar;    
         }
     }
-
+    @Override
     public long defender(){
         if(!vivo){
             return 0;
