@@ -8,7 +8,7 @@
 
 ### Códigos Principais
 
-- 💻 [Main](Principal.java)
+- 💻 [Main](Main.java)
 - 🐲 [Mobs](mobs/Mob.java)
 - 🧙🏻‍♂️ [Jogador](jogadores/Jogador.java)
 - ⛏ [Itens](itens/Item.java)
