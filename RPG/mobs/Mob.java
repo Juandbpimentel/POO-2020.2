@@ -2,6 +2,7 @@ package mobs;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.lang.Math;
 
 import itens.*;
 import jogadores.Jogador;
@@ -27,20 +28,32 @@ public class Mob{
 
     public ArrayList<Item> droparItens(){
         ArrayList<Item> drops = new ArrayList<Item>();  
-        if(arma!=null)
-            drops.add(arma);
-        if(escudo!=null)
-            drops.add(escudo);
-        if(armadura!=null)
-            drops.add(armadura);
+        if(arma!=null){
+            int chanceDrop = new Random().nextInt(100)+1;
+            if(chanceDrop<=5 + this.nivel/10)
+                drops.add(arma);
+        }
+        if(escudo!=null){
+            int chanceDrop = new Random().nextInt(100)+1;
+            if(chanceDrop<=5 + this.nivel/10)
+                drops.add(escudo);
+        }
+        if(armadura!=null){
+            int chanceDrop = new Random().nextInt(100)+1;
+            if(chanceDrop<=5 + this.nivel/10)
+                drops.add(armadura);
+        }
         return drops;
     }
 
     protected void gerarItens(long nivel){
         Random rand = new Random();
-        escudo = (rand.nextInt(100)+1> 1 + (0.2*this.nivel) )? new Escudo(nivel): null;
-        arma = (rand.nextInt(100)+1> 1 + (0.2*this.nivel) )? new Arma(nivel): null;
-        armadura = (rand.nextInt(100)+1> 1 + (0.2*this.nivel) )? new Armadura(nivel): null;
+        
+        escudo = (rand.nextInt(100)+1> 1 + (0.5*this.nivel) )? new Escudo(nivel): null;
+
+        arma = (rand.nextInt(100)+1> 1 + (0.5*this.nivel) )? new Arma(nivel): null;
+
+        armadura = (rand.nextInt(100)+1> 1 + (0.5*this.nivel) )? new Armadura(nivel): null;
     }
 
     //Construtores

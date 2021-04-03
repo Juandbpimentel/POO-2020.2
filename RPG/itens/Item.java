@@ -94,15 +94,21 @@ public class Item {
         return false;
     }
 
-    public void quebrar(long dano) {
-        if (this.quebrado){
+    public void quebrar(long dano){
+        if(this.quebrado){
             System.out.println("Desequipe sua arma ou concerte ela");
             return;
         }
-        if (dano <= 10) {
+        if(dano <= 10){
             durabilidade--;
-        } else if (dano > 10) {
-            durabilidade -= dano / 10;
+            if (durabilidade <= 0) {
+                quebrado = true;
+            }
+        }else if(dano > 10){
+            durabilidade -= dano/10; 
+            if (durabilidade <= 0) {
+                quebrado = true;
+            }
         }
     }
 
@@ -140,6 +146,10 @@ public class Item {
 
     public long getPreco() {
         return preco;
+    }
+
+    public long getDurabilidade() {
+        return durabilidade;
     }
     
 }

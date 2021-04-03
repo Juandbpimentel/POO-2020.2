@@ -438,6 +438,7 @@ public class Jogador{
 
     public void morrer(){
         this.vivo = false;
+        this.dinheiro = dinheiro - dinheiro/10;
     }
     
     public boolean potar(){
@@ -472,10 +473,11 @@ public class Jogador{
             return false;
 
         if(pocoes==pocoesMax){
-            System.out.println("Você já está com sua bolsa de poções cheia");
+            System.out.println("\n\n<<<<<Você já está com sua bolsa de poções cheia>>>>>");
             return false;
         }else{
-            System.out.println("Bolsa de poções reabastecida");  
+            int qtd = (int)this.dinheiro/50;
+            System.out.println("\n\n<<<<<Bolsa de poções reabastecida com "+qtd+" poções>>>>>");  
             return true;
         }
     }
@@ -495,6 +497,10 @@ public class Jogador{
         long calculoDano = defesa-dano;
         if(calculoDano>0)
             calculoDano=0;
+
+        this.arma.quebrar(calculoDano);
+        this.escudo.quebrar(calculoDano);
+        this.armadura.quebrar(calculoDano);
 
         this.vida += calculoDano;
 
@@ -527,7 +533,7 @@ public class Jogador{
         if(xpGanho <= 0)
             xpGanho = 1;
         System.out.println("Xp ganho : "+xpGanho);
-        if(xpGanho+this.xp>this.xpPraUpar){
+        if(xpGanho+this.xp>=this.xpPraUpar){
             this.upar(xpGanho+this.xp-this.xpPraUpar);
         }else
             this.xp+=xpGanho;
@@ -623,9 +629,10 @@ public class Jogador{
         
     }
 
-    public void verEquipados(){
-        System.out.println("\n\n\nItens equipados:\n\n    << Armadura equipada >>: "+ ( (armadura!=null) ? armadura.toString()+"\n" : "Sem armadura equipada\n" ) );
-
+    public void showEquipados(){
+        System.out.println("\n  -Itens equipados: ");
+        System.out.println("    << Armadura equipada >>: "+ ( (armadura!=null) ? armadura.toString()+"\n" : "Sem armadura equipada\n" ));
+        
         System.out.println("    <<   Arma equipada   >>: "+ ( (arma!=null) ? arma.toString()+"\n" : "Sem arma equipada\n" ) );
 
         System.out.println("    <<  Escudo equipado  >>: "+ ( (escudo!=null) ? escudo.toString()+"\n" : "Sem escudo equipado\n" ) );
@@ -636,9 +643,9 @@ public class Jogador{
         return nivel;
     }
 
-    public void verInventario(){
+    public void showInventario(){
         System.out.println("\n\n<<<<< Inventário >>>>>");
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             if(i == 0)
                 showEscudos();
             if(i == 1)
@@ -647,7 +654,9 @@ public class Jogador{
                 showArmas();
             if(i == 3)
                 showItens();
-            }
+            if(i == 4)
+                showEquipados();
+        }
     }
 
     public void vender(ArrayList<Item> inventario,int opt){
@@ -674,7 +683,7 @@ public class Jogador{
                 if (temp != null){
                     if(inventario.add(temp)){
                         resultado = true;
-                        this.gastarDinheiro(temp.getPreco());
+                        this.receberDinheiro(temp.getPreco());
                     }else{
                         if(temp!= null) 
                             mochila.add(temp);
@@ -704,7 +713,7 @@ public class Jogador{
                 if (temp != null) {
                     if(inventario.add(temp)){
                         resultado = true;
-                        this.gastarDinheiro(temp.getPreco());
+                        this.receberDinheiro(temp.getPreco());
                     }else{
                         if(temp!= null) 
                             mochila.add(temp);
@@ -734,7 +743,7 @@ public class Jogador{
                 if (temp != null) {
                     if(inventario.add(temp)){
                         resultado = true;
-                        this.gastarDinheiro(temp.getPreco());
+                        this.receberDinheiro(temp.getPreco());
                     }else{
                         if(temp!= null) 
                             mochila.add(temp);
@@ -764,7 +773,45 @@ public class Jogador{
                 if (temp != null) {
                     if(inventario.add(temp)){
                         resultado = true;
-                        this.gastarDinheiro(temp.getPreco());
+                        this.receberDinheiro(temp.getPreco());
+                    }else{
+                        if(temp!= null) 
+                            mochila.add(temp);
+                    }    
+                }
+
+                if(resultado){
+                    System.out.println("A venda deu certo");
+                }else
+                    System.out.println("A venda deu errado");
+                break;
+            case 5:
+                showVenda(opt);
+                System.out.println("Você tem "+this.getDinheiro()+" de gold");
+                System.out.print("\n\nAgora escolha 1 para armadura, 2 para arma ou 3 para escudo, para escolher que item equipado quer vender: ");
+                opt2 = scan.next();
+                
+                if(opt2.equals("1")){
+                    if(this.armadura!=null){
+                        temp = this.armadura;
+                        this.armadura = null;
+                    }
+                } else if(opt2.equals("2")){
+                    if(this.arma!=null){
+                        temp = this.arma;
+                        this.arma = null;
+                    }
+                } else if(opt2.equals("3")){
+                    if(this.escudo!=null){
+                        temp = this.escudo;
+                        this.escudo = null;
+                    }
+                }
+
+                if (temp != null) {
+                    if(inventario.add(temp)){
+                        resultado = true;
+                        this.receberDinheiro(temp.getPreco());
                     }else{
                         if(temp!= null) 
                             mochila.add(temp);
@@ -779,6 +826,7 @@ public class Jogador{
             default:
                 System.out.println("Sessão de classe de item inválida");
                 break;
+            
         }
     }
 
@@ -813,6 +861,10 @@ public class Jogador{
         
             case 4:
                 showItens();
+                break;
+
+            case 5:
+                showEquipados();
                 break;
         
             default:
@@ -874,6 +926,10 @@ public class Jogador{
         if(count == 0)
             System.out.println("\n  -O jogador não tem itens no inventário");
                     
+    }
+
+    public void encherHP(){
+        this.vida = this.vidaMax;
     }
 
 }

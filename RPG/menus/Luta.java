@@ -91,11 +91,12 @@ public class Luta{
                             if(randFugir<30){
                                 System.out.println("O seu inimigo fugiu");
                                 return;
-                            }else
+                            }
+                            else
                                 break;
                         }else if(randVidaBaixa<=30 && randVidaBaixa>10 ){
-                            if(mob.potar())
-                                break;
+                            mob.potar();
+                            break;
                         }else if(randVidaBaixa>30){
                             System.out.println("O mob está em pose de defesa");
                             defenderMob=true;

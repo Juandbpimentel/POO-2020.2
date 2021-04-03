@@ -23,8 +23,10 @@ public class Main {
             }else if(ui[0].equals("lutar")){
                 Luta luta = new Luta();
 
-                luta.gerarLuta(Mob.criarMob(Integer.parseInt(ui[1])),jogador);
-            
+                int nivelMob = (ui.length>1)?Integer.parseInt(ui[1]):1; 
+
+                luta.gerarLuta(Mob.criarMob(nivelMob),jogador);
+                jogador.encherHP();
             }else if(ui[0].equals("sair")||ui[0].equals("-1")){
                 break;
             }

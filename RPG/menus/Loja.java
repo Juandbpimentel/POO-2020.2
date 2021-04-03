@@ -36,12 +36,17 @@ public class Loja{
         clearConsole();
         while (true){
             System.out.println("\n\n\n\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<    Inventário da loja    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n\n\n");
-            String menuLoja =     "Menu de opções:"+
-                                "\n    Ver o estoque               - Digite verEstoque ou 1 para escolher a opção\n"+
-                                "\n    Comprar                     - Digite comprar ou 2 para escolher a opção\n"+
-                                "\n    Vender                      - Digite vender ou 3 para escolher a opção\n"+
-                                "\n    Ver o inventário do jogador - Digite verInventario ou 4 para escolher a opção\n"+
-                                "\n    Sair da loja                - Digite sair ou 5 para escolher a opção\n"+
+            String menuLoja =   "Dinheiro na bolsa: "+jogador.getDinheiro()+
+                                "\nMenu de opções:"+
+                                "\n-------------------------------------------------------------------------------------"+
+                                "\n| 1 -   Ver o estoque               - Digite verEstoque ou 1 para escolher a opção     |\n"+
+                                "\n| 2 -   Comprar                     - Digite comprar ou 2 para escolher a opção        |\n"+
+                                "\n| 3 -   Vender                      - Digite vender ou 3 para escolher a opção         |\n"+
+                                "\n| 4 -   Ver o inventário do jogador - Digite verInventario ou 4 para escolher a opção  |\n"+
+                                "\n| 5 -   Comprar poções              - Digite poções ou 5 para escolher a opção         |\n"+
+                                "\n| 6 -   Concertar Arma              - Digite concertar ou 6 para escolher a opção      |\n"+
+                                "\n| 7 -   Sair da loja                - Digite sair ou 7 para escolher a opção           |\n"+
+                                "\n-------------------------------------------------------------------------------------\n"+
                                 "\nDigite o número ou o nome da opção desejada>>> ";
             System.out.print(menuLoja);
             String line = in.next();
@@ -74,8 +79,8 @@ public class Loja{
 
             }else if(ui[0].equals("3")||ui[0].equals("vender")){
                 clearConsole();
-                jogador.verInventario();
-                System.out.print("\n\nDigite o número ou o nome da categoria do item que quer vender:(1-Escudos | 2-Armaduras | 3-Armas | 4-Itens): ");
+                jogador.showInventario();
+                System.out.print("\n\nDigite o número ou o nome da categoria do item que quer vender:(1-Escudos | 2-Armaduras | 3-Armas | 4-Itens | 5-Equipados): ");
                 String opt = in.next();
 
                 if(opt.equals("1")||opt.equals("Escudos")){
@@ -93,10 +98,25 @@ public class Loja{
                 else if(opt.equals("4")||opt.equals("Itens")){
                     jogador.vender(this.inventario,4);
                 }
+                else if(opt.equals("5")||opt.equals("Equipados")){
+                    jogador.vender(this.inventario,5);
+                }
             }else if(ui[0].equals("4")||ui[0].equals("verInventario")){
                 clearConsole();
-                jogador.verInventario();
-            }else if(ui[0].equals("5")||ui[0].equals("sair")){
+                jogador.showInventario();
+            }else if(ui[0].equals("5")||ui[0].equals("pocoes")){
+                System.out.print("\n\n>>>As poções são 50 peças de ouro, você quer reabastecer elas? Digite Y se quiser, ou qualquer outra coisa se não: ");
+                if(in.next().equals("Y")){
+                    jogador.reabastecerPocoes();
+                }
+                
+            }else if(ui[0].equals("6")||ui[0].equals("concertar")){
+                System.out.print("\n\n>>>As poções são 50 peças de ouro, você quer reabastecer elas? Digite Y se quiser, ou qualquer outra coisa se não: ");
+                if(in.next().equals("Y")){
+                    jogador.reabastecerPocoes();
+                }
+                
+            }else if(ui[0].equals("7")||ui[0].equals("sair")){
                 clearConsole();
                 break;
             }else{

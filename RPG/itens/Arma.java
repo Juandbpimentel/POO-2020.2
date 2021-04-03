@@ -77,18 +77,6 @@ public class Arma extends Item{
         }
         return false;
     }
-    
-    public void quebrar(long dano){
-        if(this.quebrado){
-            System.out.println("Desequipe sua arma ou concerte ela");
-            return;
-        }
-        if(dano <= 10){
-            durabilidade--;
-        }else if(dano > 10){
-            durabilidade -= dano/100; 
-        }
-    }
 
     public long getBonusAtaque() {
         Random randomizador = new Random();
